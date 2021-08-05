@@ -66,33 +66,23 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
           <Nav className="mr-auto">
             <Nav.Link
               as={Link}
-              to="/add-artist"
+              to="/product"
               style={{
                 marginLeft: "10px",
                 textAlign: "center",
               }}
             >
-              Add Artist
+              Product
             </Nav.Link>
             <Nav.Link
               as={Link}
-              to="/add-music"
+              to="/cart"
               style={{
                 marginLeft: "10px",
                 textAlign: "center",
               }}
             >
-              Add Music
-            </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/transaction"
-              style={{
-                marginLeft: "10px",
-                textAlign: "center",
-              }}
-            >
-              Transaction
+              Cart
             </Nav.Link>
           </Nav>
           <Nav>
