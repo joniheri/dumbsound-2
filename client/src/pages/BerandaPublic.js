@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+// import { Link } from "react-router-dom";
 
 // impost object bootstrap
-import { Row, Col, Card, Container } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 
 // impost css
 import "../css/BerandaPublic.css";
@@ -12,7 +12,7 @@ import ModalLogin from "../components/modal/ModalLogin";
 import ModalRegister from "../components/modal/ModalRegister";
 
 // import config
-import { API } from "../config/Api";
+// import { API } from "../config/Api";
 
 // import img
 // import Rectangle1 from "../img/Rectangle1.png";
@@ -20,7 +20,7 @@ import { API } from "../config/Api";
 export default function BerandaPublic({ stateLogin, setStateLogin }) {
   const [loginShow, setLoginShow] = useState(false);
   const [registerShow, setRegisterShow] = useState(false);
-  const [music, setMusic] = useState([]);
+  // const [music, setMusic] = useState([]);
 
   return (
     <Container fluid>

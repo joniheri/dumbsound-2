@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 
-// import object botstrap
+// import compoents botstrap
 import { Container, Navbar, Nav, Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
+// import css
+import "../css/NavbarPublic.css";
 
 // import components
 import ModalLogin from "../components/modal/ModalLogin";
@@ -10,6 +13,11 @@ import ModalRegister from "../components/modal/ModalRegister";
 
 // import img
 import LogoShapes from "../img/LogoShapes.png";
+// import Ellipse2 from "../img/Ellipse2.png";
+// import Vector1 from "../img/Vector1.png";
+// import Vector2 from "../img/Vector2.png";
+// import Vector3 from "../img/Vector3.png";
+// import Vector4 from "../img/Vector4.png";
 
 export default function NavbarPublic({ stateLogin, setStateLogin }) {
   const [loginShow, setLoginShow] = useState(false);
@@ -31,7 +39,7 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
       variant="dark"
       fixed="top"
       className="shadow Container"
-      style={{ paddingTop: "25px", paddingBottom: "10px" }}
+      style={{ paddingTop: "15px", paddingBottom: "10px" }}
     >
       <Container fluid>
         <Navbar.Brand as={Link} to="/">
@@ -46,16 +54,159 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link
-              href="#link"
+              as={Link}
+              to="/add-artist"
               style={{
                 marginLeft: "10px",
                 textAlign: "center",
               }}
             >
-              About
+              Add Artist
+            </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to="/add-music"
+              style={{
+                marginLeft: "10px",
+                textAlign: "center",
+              }}
+            >
+              Add Music
+            </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to="/transaction"
+              style={{
+                marginLeft: "10px",
+                textAlign: "center",
+              }}
+            >
+              Transaction
             </Nav.Link>
           </Nav>
           <Nav>
+            {/* <div className="dropdown" style={{ float: "right" }}>
+              <Image
+                src={Ellipse2}
+                onClick={onSwitchRegister}
+                style={{
+                  width: "40PX",
+                  height: "auto",
+                  cursor: "pointer",
+                  marginTop: "5px",
+                  marginLeft: "10px",
+                }}
+              />
+              <div className="dropdown-content">
+                <Link
+                  to="/transaction"
+                  style={{
+                    textDecoration: "none",
+                    padding: "0",
+                    margin: "0",
+                  }}
+                >
+                  <a
+                    href="#"
+                    style={{
+                      borderTopLeftRadius: "3px",
+                      borderTopRightRadius: "3px",
+                      fontSize: "15px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <Image
+                      src={Vector1}
+                      style={{
+                        marginRight: "20px",
+                        height: "20px",
+                        width: "auto",
+                      }}
+                    />
+                    Transaction
+                  </a>
+                </Link>
+                <Link
+                  to="/add-music"
+                  style={{
+                    textDecoration: "none",
+                    padding: "0",
+                    margin: "0",
+                  }}
+                >
+                  <a
+                    href="#"
+                    style={{
+                      borderTopLeftRadius: "3px",
+                      borderTopRightRadius: "3px",
+                      fontSize: "15px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <Image
+                      src={Vector4}
+                      style={{
+                        marginRight: "22px",
+                        height: "20px",
+                        width: "auto",
+                      }}
+                    />
+                    Add Music
+                  </a>
+                </Link>
+                <Link
+                  to="/add-artist"
+                  style={{
+                    textDecoration: "none",
+                    padding: "0",
+                    margin: "0",
+                  }}
+                >
+                  <a
+                    href="#"
+                    style={{
+                      fontSize: "15px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <Image
+                      src={Vector2}
+                      style={{
+                        marginRight: "30px",
+                        height: "20px",
+                        width: "auto",
+                      }}
+                    />
+                    Add Artis
+                  </a>
+                </Link>
+                <div className="borderBottom-2"></div>
+                <a
+                  href="#"
+                  style={{
+                    borderBottomLeftRadius: "3px",
+                    borderBottomRightRadius: "3px",
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                  }}
+                  // onClick={() => {
+                  //   dispatch({
+                  //     type: "LOGOUT",
+                  //   });
+                  // }}
+                >
+                  <Image
+                    src={Vector3}
+                    style={{
+                      marginRight: "27px",
+                      height: "20px",
+                      width: "auto",
+                    }}
+                  />
+                  Logout
+                </a>
+              </div>
+            </div> */}
             <Link
               to=""
               style={{

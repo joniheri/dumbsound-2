@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 
-// import component bootstrap
+// import components bootstrap
 import { Button, Modal, Form, Alert } from "react-bootstrap";
 
 // impost css
