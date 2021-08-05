@@ -15,8 +15,8 @@ export const DataProducts = [
   },
   {
     id: 3,
-    name: "Asus ROP Gen1",
-    description: "Asus ROP Gen1 2021",
+    name: "Asus ROG Gen1",
+    description: "Asus ROG Gen1 2021",
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMH7bXdz8Kpqq2nxsDNKNWJA76MXRi1jHfbw&usqp=CAU",
   },

@@ -26,13 +26,12 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
     <Container fluid>
       {/* Content */}
       <Row
-        className="landingPage"
         style={{
           paddingTop: "30px",
           marginBottom: "20px",
         }}
       >
-        <Col sm={12}>
+        <Col lg={12} className="landingPage">
           <p
             style={{
               color: "#fff",
@@ -66,7 +65,7 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
             marginBottom: "30px",
           }}
         >
-          <Col sm={12}>
+          <Col lg={12}>
             <p
               style={{
                 textAlign: "center",
@@ -82,7 +81,7 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
           <Col sm={12}>
             <Row>
               {/* {music?.map((dataMusic, index) => (
-                <Col sm={2} style={{ marginBottom: "20px" }}>
+                <Col md={2} style={{ marginBottom: "20px" }}>
                   <Link
                     onClick={onSwitchLogin}
                     style={{

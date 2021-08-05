@@ -14,6 +14,7 @@ import AddMusic from "./pages/AddMusic";
 import Transaction from "./pages/Transaction";
 import Cart from "./pages/Cart";
 import Product from "./pages/Product";
+import DetailProduct from "./pages/DetailProduct";
 import NotFound from "./pages/NotFound";
 
 export default function AppProject() {
@@ -24,7 +25,8 @@ export default function AppProject() {
       <Switch>
         <Route exact path="/" component={BerandaPublic} />
         <Route exact path="/product" component={Product} />
-        <PrivateRoute exact path="/cart" component={Cart} />
+        <Route exact path="/detail-product" component={DetailProduct} />
+        <Route exact path="/cart" component={Cart} />
         <PrivateRoute exact path="/add-artist" component={AddArtist} />
         <PrivateRoute exact path="/add-music" component={AddMusic} />
         <PrivateRoute exact path="/transaction" component={Transaction} />

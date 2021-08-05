@@ -50,7 +50,7 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
       variant="dark"
       fixed="top"
       className="shadow Container"
-      style={{ paddingTop: "15px", paddingBottom: "10px" }}
+      style={{ paddingTop: "20px", paddingBottom: "10px" }}
     >
       <Container fluid>
         <Navbar.Brand as={Link} to="/">
@@ -76,190 +76,197 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
             </Nav.Link>
             <Nav.Link
               as={Link}
-              to="/cart"
+              to="/detail-product"
               style={{
                 marginLeft: "10px",
                 textAlign: "center",
               }}
             >
-              Cart
+              Detail Product
             </Nav.Link>
           </Nav>
-          <Nav>
-            {!state.isLogin ? (
-              <>
-                <Link
-                  to=""
+          <Nav.Link
+            as={Link}
+            to="/cart"
+            style={{
+              marginLeft: "10px",
+              textAlign: "center",
+              color: "#b8b8b8",
+            }}
+          >
+            Cart: {state.carts.length}
+          </Nav.Link>
+          {!state.isLogin ? (
+            <>
+              <Nav.Link
+                style={{
+                  padding: "0",
+                  marginLeft: "15px",
+                }}
+              >
+                <Button
+                  onClick={onSwitchLogin}
+                  variant=""
+                  size="sm"
+                  block
                   style={{
-                    marginLeft: "15px",
-                    textDecoration: "none",
+                    background: "",
+                    textAlign: "center",
+                    color: "#fff",
+                    paddingLeft: "37px",
+                    paddingRight: "37px",
+                    border: "1px solid #FFFFFF",
+                    borderRadius: "5px",
                   }}
                 >
-                  <Button
-                    onClick={onSwitchLogin}
-                    variant=""
-                    size="sm"
-                    block
-                    style={{
-                      background: "",
-                      textAlign: "center",
-                      color: "#fff",
-                      paddingLeft: "37px",
-                      paddingRight: "37px",
-                      border: "1px solid #FFFFFF",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Login
-                  </Button>
-                </Link>
-                <Link
-                  to=""
-                  style={{
-                    marginLeft: "15px",
-                    textDecoration: "none",
-                  }}
-                >
-                  <Button
-                    onClick={onSwitchRegister}
-                    variant=""
-                    size="sm"
-                    block
-                    style={{
-                      background: "#EE4622",
-                      textAlign: "center",
-                      color: "#fff",
-                      paddingLeft: "25px",
-                      paddingRight: "25px",
-                      border: "1px solid #EE4622",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Register
-                  </Button>
-                </Link>
-              </>
-            ) : (
-              <div className="dropdown" style={{ float: "right" }}>
-                <Image
-                  src={Ellipse2}
+                  Login
+                </Button>
+              </Nav.Link>
+              <Nav.Link
+                style={{
+                  padding: "0",
+                  marginLeft: "15px",
+                }}
+              >
+                <Button
                   onClick={onSwitchRegister}
+                  variant=""
+                  size="sm"
+                  block
                   style={{
-                    width: "40PX",
-                    height: "auto",
-                    cursor: "pointer",
-                    marginTop: "5px",
-                    marginLeft: "10px",
+                    background: "#EE4622",
+                    textAlign: "center",
+                    color: "#fff",
+                    paddingLeft: "25px",
+                    paddingRight: "25px",
+                    border: "1px solid #EE4622",
+                    borderRadius: "5px",
                   }}
-                />
-                <div className="dropdown-content">
-                  <Link
-                    to="/transaction"
-                    style={{
-                      textDecoration: "none",
-                      padding: "0",
-                      margin: "0",
-                    }}
-                  >
-                    <a
-                      href="#"
-                      style={{
-                        borderTopLeftRadius: "3px",
-                        borderTopRightRadius: "3px",
-                        fontSize: "15px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      <Image
-                        src={Vector1}
-                        style={{
-                          marginRight: "20px",
-                          height: "20px",
-                          width: "auto",
-                        }}
-                      />
-                      Transaction
-                    </a>
-                  </Link>
-                  <Link
-                    to="/add-music"
-                    style={{
-                      textDecoration: "none",
-                      padding: "0",
-                      margin: "0",
-                    }}
-                  >
-                    <a
-                      href="#"
-                      style={{
-                        borderTopLeftRadius: "3px",
-                        borderTopRightRadius: "3px",
-                        fontSize: "15px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      <Image
-                        src={Vector4}
-                        style={{
-                          marginRight: "22px",
-                          height: "20px",
-                          width: "auto",
-                        }}
-                      />
-                      Add Music
-                    </a>
-                  </Link>
-                  <Link
-                    to="/add-artist"
-                    style={{
-                      textDecoration: "none",
-                      padding: "0",
-                      margin: "0",
-                    }}
-                  >
-                    <a
-                      href="#"
-                      style={{
-                        fontSize: "15px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      <Image
-                        src={Vector2}
-                        style={{
-                          marginRight: "30px",
-                          height: "20px",
-                          width: "auto",
-                        }}
-                      />
-                      Add Artis
-                    </a>
-                  </Link>
-                  <div className="borderBottom"></div>
+                >
+                  Register
+                </Button>
+              </Nav.Link>
+            </>
+          ) : (
+            <div className="dropdown" style={{ float: "right" }}>
+              <Image
+                src={Ellipse2}
+                onClick={onSwitchRegister}
+                style={{
+                  width: "40PX",
+                  height: "auto",
+                  cursor: "pointer",
+                  marginTop: "5px",
+                  marginLeft: "10px",
+                }}
+              />
+              <div className="dropdown-content">
+                <Link
+                  to="/transaction"
+                  style={{
+                    textDecoration: "none",
+                    padding: "0",
+                    margin: "0",
+                  }}
+                >
                   <a
                     href="#"
                     style={{
-                      borderBottomLeftRadius: "3px",
-                      borderBottomRightRadius: "3px",
+                      borderTopLeftRadius: "3px",
+                      borderTopRightRadius: "3px",
                       fontSize: "15px",
                       fontWeight: "bold",
                     }}
-                    onClick={handleLogout}
                   >
                     <Image
-                      src={Vector3}
+                      src={Vector1}
                       style={{
-                        marginRight: "27px",
+                        marginRight: "20px",
                         height: "20px",
                         width: "auto",
                       }}
                     />
-                    Logout
+                    Transaction
                   </a>
-                </div>
+                </Link>
+                <Link
+                  to="/add-music"
+                  style={{
+                    textDecoration: "none",
+                    padding: "0",
+                    margin: "0",
+                  }}
+                >
+                  <a
+                    href="#"
+                    style={{
+                      borderTopLeftRadius: "3px",
+                      borderTopRightRadius: "3px",
+                      fontSize: "15px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <Image
+                      src={Vector4}
+                      style={{
+                        marginRight: "22px",
+                        height: "20px",
+                        width: "auto",
+                      }}
+                    />
+                    Add Music
+                  </a>
+                </Link>
+                <Link
+                  to="/add-artist"
+                  style={{
+                    textDecoration: "none",
+                    padding: "0",
+                    margin: "0",
+                  }}
+                >
+                  <a
+                    href="#"
+                    style={{
+                      fontSize: "15px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <Image
+                      src={Vector2}
+                      style={{
+                        marginRight: "30px",
+                        height: "20px",
+                        width: "auto",
+                      }}
+                    />
+                    Add Artis
+                  </a>
+                </Link>
+                <div className="borderBottom"></div>
+                <a
+                  href="#"
+                  style={{
+                    borderBottomLeftRadius: "3px",
+                    borderBottomRightRadius: "3px",
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                  }}
+                  onClick={handleLogout}
+                >
+                  <Image
+                    src={Vector3}
+                    style={{
+                      marginRight: "27px",
+                      height: "20px",
+                      width: "auto",
+                    }}
+                  />
+                  Logout
+                </a>
               </div>
-            )}
-          </Nav>
+            </div>
+          )}
 
           {/* ModalLogin */}
           <ModalLogin
