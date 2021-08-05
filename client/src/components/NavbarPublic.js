@@ -1,118 +1,132 @@
-import React from "react";
+import React, { useState } from "react";
 
 // import object botstrap
-import {
-  Container,
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Button,
-} from "react-bootstrap";
+import { Container, Navbar, Nav, Button, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export default function NavbarPublic() {
+// import components
+import ModalLogin from "../components/modal/ModalLogin";
+import ModalRegister from "../components/modal/ModalRegister";
+
+// import img
+import LogoShapes from "../img/LogoShapes.png";
+
+export default function NavbarPublic({ stateLogin, setStateLogin }) {
+  const [loginShow, setLoginShow] = useState(false);
+  const [registerShow, setRegisterShow] = useState(false);
+
+  const onSwitchLogin = () => {
+    setRegisterShow(false);
+    setLoginShow(true);
+  };
+  const onSwitchRegister = () => {
+    setRegisterShow(true);
+    setLoginShow(false);
+  };
+
   return (
     <Navbar
       collapseOnSelect
       expand="lg"
       variant="dark"
       fixed="top"
-      className="shadow"
+      className="shadow Container"
+      style={{ paddingTop: "25px", paddingBottom: "10px" }}
     >
-      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link
-            href="#home"
-            style={{
-              background: "green",
-              marginLeft: "10px",
-              textAlign: "center",
-            }}
-          >
-            Home
-          </Nav.Link>
-          <Nav.Link
-            href="#link"
-            style={{
-              background: "red",
-              marginLeft: "10px",
-              textAlign: "center",
-            }}
-          >
-            Link
-          </Nav.Link>
-        </Nav>
-        <Nav>
-          <NavDropdown
-            title="Dropdown"
-            id="basic-nav-dropdown"
-            style={{
-              background: "green",
-              marginLeft: "10px",
-              textAlign: "center",
-            }}
-          >
-            <NavDropdown.Item
-              href="#action/3.1"
+      <Container fluid>
+        <Navbar.Brand as={Link} to="/">
+          <Image
+            src={LogoShapes}
+            style={{ marginRight: "10px", height: "25px", width: "auto" }}
+          />
+          <span style={{ color: "#EE4622" }}>DUMB</span>
+          <span>SOUND</span>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link
+              href="#link"
               style={{
+                marginLeft: "10px",
                 textAlign: "center",
               }}
             >
-              Action
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              href="#action/3.2"
+              About
+            </Nav.Link>
+          </Nav>
+          <Nav>
+            <Link
+              to=""
               style={{
-                textAlign: "center",
+                marginLeft: "15px",
+                textDecoration: "none",
               }}
             >
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              href="#action/3.3"
+              <Button
+                onClick={onSwitchLogin}
+                variant=""
+                size="sm"
+                block
+                style={{
+                  background: "",
+                  textAlign: "center",
+                  color: "#fff",
+                  paddingLeft: "37px",
+                  paddingRight: "37px",
+                  border: "1px solid #FFFFFF",
+                  borderRadius: "5px",
+                }}
+              >
+                Login
+              </Button>
+            </Link>
+            <Link
+              to=""
               style={{
-                textAlign: "center",
+                marginLeft: "15px",
+                textDecoration: "none",
               }}
             >
-              Something
-            </NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item
-              href="#action/3.4"
-              style={{
-                textAlign: "center",
-              }}
-            >
-              Separated link
-            </NavDropdown.Item>
-          </NavDropdown>
-          <Nav.Link
-            href="#about"
-            style={{
-              background: "red",
-              marginLeft: "10px",
-              textAlign: "center",
-              paddingLeft: "30px",
-              paddingRight: "30px",
-            }}
-          >
-            Login
-          </Nav.Link>
-          <Nav.Link
-            href="#about"
-            style={{
-              background: "green",
-              marginLeft: "10px",
-              textAlign: "center",
-            }}
-          >
-            Register
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
+              <Button
+                onClick={onSwitchRegister}
+                variant=""
+                size="sm"
+                block
+                style={{
+                  background: "#EE4622",
+                  textAlign: "center",
+                  color: "#fff",
+                  paddingLeft: "25px",
+                  paddingRight: "25px",
+                  border: "1px solid #EE4622",
+                  borderRadius: "5px",
+                }}
+              >
+                Register
+              </Button>
+            </Link>
+          </Nav>
+
+          {/* ModalLogin */}
+          <ModalLogin
+            loginShow={loginShow}
+            setLoginShow={setLoginShow}
+            setRegisterShow={setRegisterShow}
+            stateLogin={stateLogin}
+            setStateLogin={setStateLogin}
+          />
+          {/* EndModalLogin */}
+
+          {/* ModalRegister */}
+          <ModalRegister
+            registerShow={registerShow}
+            setRegisterShow={setRegisterShow}
+            setLoginShow={setLoginShow}
+          />
+          {/* EndModalRegister */}
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 }

@@ -1,0 +1,7 @@
+.landingPage {
+  background: url(../img/Rectangle1.png);
+  background-repeat: no-repeat;
+  height: 510px;
+  width: auto;
+  object-fit: cover;
+}
