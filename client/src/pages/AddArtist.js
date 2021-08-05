@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Container, Alert, Form, Row, Col, Button } from "react-bootstrap";
 
+// imporrt components
+import { AppContext } from "../contexts/GlobalContext";
+
 export default function AddArtist() {
   const [messageShowFailed, setMessageShowFailed] = useState("");
   const [messageNotif, setMessageNotif] = useState("");

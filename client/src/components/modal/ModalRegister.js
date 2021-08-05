@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // import component bootstrap
 import { Button, Modal, Form, Alert } from "react-bootstrap";
 
-import { API } from "../../config/Api";
+// import { API } from "../../config/Api";
 
 export default function ModalRegister({
   registerShow,
@@ -11,7 +11,7 @@ export default function ModalRegister({
   setRegisterShow,
 }) {
   const [messageShowFailed, setMessageShowFailed] = useState("");
-  const [messageShowSuccess, setMessageShowSuccess] = useState(false);
+  // const [messageShowSuccess, setMessageShowSuccess] = useState(false);
 
   const [form, setForm] = useState({
     fullname: "",

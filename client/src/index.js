@@ -4,6 +4,7 @@ import "./index.css";
 // import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AppProject from "./AppProject";
+import { AppContextProvider } from "./contexts/GlobalContext";
 
 // import bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,7 +12,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 ReactDOM.render(
   <React.StrictMode>
     {/* <App /> */}
-    <AppProject />
+    <AppContextProvider>
+      <AppProject />
+    </AppContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

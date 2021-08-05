@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 
 // import components bootstrap
 import { Button, Modal, Form, Alert } from "react-bootstrap";
@@ -6,11 +6,16 @@ import { Button, Modal, Form, Alert } from "react-bootstrap";
 // impost css
 import "../../css/ModalLogin.css";
 
+// import context
+import { AppContext } from "../../contexts/GlobalContext";
+
 export default function ModalLogin({
   loginShow,
   setLoginShow,
   setRegisterShow,
 }) {
+  const [state, dispatch] = useContext(AppContext);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,6 +33,16 @@ export default function ModalLogin({
   const handleFormSubmit = async (e) => {
     try {
       e.preventDefault();
+
+      dispatch({
+        type: "LOGIN",
+      });
+      setFormData({
+        ...formData,
+        email: "",
+        password: "",
+      });
+      setLoginShow(false);
 
       // const requestBody = {
       //   email: formData.email,
