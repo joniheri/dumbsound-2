@@ -41,73 +41,90 @@ export default function Cart() {
     });
   };
 
+  console.log("StateFromChart: ", state.carts.length);
   return (
     <div>
       <Container style={{ marginTop: "100px" }}>
-        <h3 style={{ color: "#b8b8b8", marginBottom: "30px" }}>Cart Page</h3>
-        <ListGroup>
-          {state.carts.map((product) => (
-            <ListGroup.Item variant="dark">
-              <Row>
-                <Col md={3}>
-                  <Image
-                    rounded
-                    src={product.imageUrl}
-                    style={{
-                      height: "180px",
-                      width: "230px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Col>
-                <Col md={9}>
-                  <h3>{product.name}</h3>
-                  <p>{product.description}</p>
-                  <p>
-                    Jumlah item:{" "}
-                    <span
-                      onClick={() =>
-                        handleRemoveCartItem(product.id, product.qty)
-                      }
-                      className="btn btn-sm"
-                      style={{
-                        cursor: "pointer",
-                        color: "#b8b8b8",
-                        background: "#6d737e",
-                        paddingLeft: "9px",
-                        paddingRight: "9px",
-                      }}
-                    >
-                      -
-                    </span>{" "}
-                    {product.qty}{" "}
-                    <span
-                      onClick={() => handleAddToCart(product.id)}
-                      className="btn btn-sm"
-                      style={{
-                        cursor: "pointer",
-                        color: "#b8b8b8",
-                        background: "#176035",
-                        paddingLeft: "9px",
-                        paddingRight: "9px",
-                      }}
-                    >
-                      +
-                    </span>
-                  </p>
-                  <div>
-                    <Button
-                      variant="secondary"
-                      onClick={() => handleRemoveCart(product.id)}
-                    >
-                      Hapus
-                    </Button>
-                  </div>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
+        {state.carts.length === 0 ? (
+          <h3
+            style={{
+              color: "#b8b8b8",
+              marginBottom: "30px",
+              textAlign: "center",
+            }}
+          >
+            Chart Empty!
+          </h3>
+        ) : (
+          <>
+            <h3 style={{ color: "#b8b8b8", marginBottom: "30px" }}>
+              Cart Page
+            </h3>
+            <ListGroup>
+              {state.carts.map((product) => (
+                <ListGroup.Item variant="dark">
+                  <Row>
+                    <Col md={3}>
+                      <Image
+                        rounded
+                        src={product.imageUrl}
+                        style={{
+                          height: "180px",
+                          width: "230px",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </Col>
+                    <Col md={9}>
+                      <h3>{product.name}</h3>
+                      <p>{product.description}</p>
+                      <p>
+                        Jumlah item:{" "}
+                        <span
+                          onClick={() =>
+                            handleRemoveCartItem(product.id, product.qty)
+                          }
+                          className="btn btn-sm"
+                          style={{
+                            cursor: "pointer",
+                            color: "#b8b8b8",
+                            background: "#6d737e",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                          }}
+                        >
+                          -
+                        </span>{" "}
+                        {product.qty}{" "}
+                        <span
+                          onClick={() => handleAddToCart(product.id)}
+                          className="btn btn-sm"
+                          style={{
+                            cursor: "pointer",
+                            color: "#b8b8b8",
+                            background: "#176035",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                          }}
+                        >
+                          +
+                        </span>
+                      </p>
+                      <div>
+                        <Button
+                          variant="secondary"
+                          onClick={() => handleRemoveCart(product.id)}
+                        >
+                          Hapus
+                        </Button>
+                      </div>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          </>
+        )}
       </Container>
     </div>
   );

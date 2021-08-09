@@ -25,7 +25,11 @@ export default function AppProject() {
       <Switch>
         <Route exact path="/" component={BerandaPublic} />
         <Route exact path="/product" component={Product} />
-        <Route exact path="/detail-product" component={DetailProduct} />
+        <Route
+          exact
+          path="/detail-product/:idParam"
+          component={DetailProduct}
+        />
         <Route exact path="/cart" component={Cart} />
         <PrivateRoute exact path="/add-artist" component={AddArtist} />
         <PrivateRoute exact path="/add-music" component={AddMusic} />

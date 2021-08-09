@@ -27,7 +27,6 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
       {/* Content */}
       <Row
         style={{
-          paddingTop: "30px",
           marginBottom: "20px",
         }}
       >

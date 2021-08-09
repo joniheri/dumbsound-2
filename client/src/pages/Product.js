@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { Container, Card, Row, Col, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { DataProducts } from "../fakeData/Product";
 import { AppContext } from "../contexts/GlobalContext";
 
 export default function Product() {
+  const router = useHistory();
   // console.log("FakeDataProduct: ", DataProducts);
   const [state, dispatch] = useContext(AppContext);
 
@@ -29,7 +30,13 @@ export default function Product() {
                 <Card.Img
                   variant="top"
                   src={products.imageUrl}
-                  style={{ height: "210px", width: "auto", objectFit: "cover" }}
+                  style={{
+                    height: "210px",
+                    width: "auto",
+                    objectFit: "cover",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => router.push(`/detail-product/${products.id}`)}
                 />
                 <Card.Body>
                   <Card.Title>{products.name}</Card.Title>
@@ -42,6 +49,15 @@ export default function Product() {
                     onClick={() => handleAddToCart(products.id)}
                   >
                     Add to cart
+                  </Button>
+                  <Button
+                    block
+                    variant="info"
+                    onClick={() =>
+                      router.push(`/detail-product/${products.id}`)
+                    }
+                  >
+                    Detail Product
                   </Button>
                 </Card.Footer>
               </Card>

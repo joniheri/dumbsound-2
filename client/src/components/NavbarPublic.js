@@ -74,16 +74,6 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
             >
               Product
             </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/detail-product"
-              style={{
-                marginLeft: "10px",
-                textAlign: "center",
-              }}
-            >
-              Detail Product
-            </Nav.Link>
           </Nav>
           <Nav.Link
             as={Link}
