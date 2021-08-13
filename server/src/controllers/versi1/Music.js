@@ -1,11 +1,43 @@
 const { Music, Artist } = require("../../../models");
 
-// GetArtistsFunction
+// GetMusics Function
 exports.getMusics = async (req, res) => {
   try {
     const getDatas = await Music.findAll({
       attributes: {
         exclude: ["createdAt", "updatedAt", "ArtistId"],
+      },
+    });
+
+    if (getDatas == null) {
+      return res.send({
+        response: "Response Failed",
+        status: "Data is empty!",
+      });
+    }
+
+    res.send({
+      response: "Response Success",
+      status: "Get data Success.",
+      dataCount: getDatas.length,
+      data: getDatas,
+    });
+  } catch (error) {
+    return res.send({
+      response: "Response Failed",
+      status: "Get data Error!",
+      error: error,
+    });
+  }
+};
+// EndGetMusics Function
+
+// GetMusicsBelongsToArtist Function
+exports.getMusicsBelongstoArtis = async (req, res) => {
+  try {
+    const getDatas = await Music.findAll({
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "artistId", "ArtistId"],
       },
       include: {
         model: Artist,
@@ -37,19 +69,26 @@ exports.getMusics = async (req, res) => {
     });
   }
 };
-// EndGetArtistsFunction
+// EndGetMusicsBelongsToArtist Function
 
-//  GetArtistByIdFunction
-exports.getArtistById = async (req, res) => {
+//  GetMusicById Function
+exports.getMusictById = async (req, res) => {
   try {
     const { idParam } = req.params;
 
-    const getData = await Artist.findOne({
+    const getData = await Music.findOne({
       where: {
         id: idParam,
       },
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["createdAt", "updatedAt", "artistId", "ArtistId"],
+      },
+      include: {
+        model: Artist,
+        as: "artist",
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
       },
     });
 
@@ -75,14 +114,14 @@ exports.getArtistById = async (req, res) => {
     });
   }
 };
-// EndGetArtistByIdFunction
+// EndGetMusicById Function
 
-// AddArtistFunction
-exports.addArtist = async (req, res) => {
+// AddMusic Function
+exports.addMusic = async (req, res) => {
   try {
     // AddData
     const dataAdd = req.body; //Data will Added
-    const dataAdded = await Artist.create(dataAdd);
+    const dataAdded = await Music.create(dataAdd);
     if (!dataAdded) {
       return res.send({
         response: "Response Failed",
@@ -91,23 +130,24 @@ exports.addArtist = async (req, res) => {
     }
     // EndAddData
 
-    // GetArtistById
-    const idArtist = dataAdded.id;
-    const getData = await Artist.findOne({
+    // GetDataById
+    const idMusic = dataAdded.id;
+    const getData = await Music.findOne({
       where: {
-        id: idArtist,
+        id: idMusic,
       },
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["createdAt", "updatedAt", "artistId", "ArtistId"],
       },
     });
     if (getData == null) {
       return res.send({
         response: "Response Failed",
-        status: `Data with id ${idArtist} Not Found!`,
+        status: `Data with id ${idMusic} Not Found!`,
         data: null,
       });
     }
+    // GetDataById
 
     res.send({
       response: "Response Success",
@@ -122,15 +162,15 @@ exports.addArtist = async (req, res) => {
     });
   }
 };
-// EndAddArtistFunction
+// EndAddMusic Function
 
-// UpdateArtistFunction
-exports.updateArtist = async (req, res) => {
+// UpdateMusic Function
+exports.updateMusic = async (req, res) => {
   try {
     const { idParam } = req.params;
 
     // CheckDataById
-    const getDataById = await Artist.findOne({
+    const getDataById = await Music.findOne({
       where: {
         id: idParam,
       },
@@ -149,7 +189,7 @@ exports.updateArtist = async (req, res) => {
 
     // UpdateData
     const dataUpdate = req.body; //Data will updated
-    const dataUpdated = await Artist.update(dataUpdate, {
+    const dataUpdated = await Music.update(dataUpdate, {
       where: {
         id: idParam,
       },
@@ -164,12 +204,19 @@ exports.updateArtist = async (req, res) => {
     // EndUpdateData
 
     // getDataAfterUpdateById
-    const getDataAfterUpdateById = await Artist.findOne({
+    const getDataAfterUpdateById = await Music.findOne({
       where: {
         id: idParam,
       },
       attributes: {
         exclude: ["createdAt", "updatedAt"],
+      },
+      include: {
+        model: Artist,
+        as: "artist",
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
       },
     });
     // getDataAfterUpdateById
@@ -197,15 +244,15 @@ exports.updateArtist = async (req, res) => {
     });
   }
 };
-// EndUpdateArtistFunction
+// EndUpdateMusic Function
 
 // DeleteArtistFunction
-exports.deleteArtist = async (req, res) => {
+exports.deleteMusic = async (req, res) => {
   try {
     const { idParam } = req.params;
 
     // CheckDataById
-    const getDataById = await Artist.findOne({
+    const getDataById = await Music.findOne({
       where: {
         id: idParam,
       },
@@ -223,7 +270,7 @@ exports.deleteArtist = async (req, res) => {
     // EndCheckDataById
 
     // DeleteData
-    const deleteData = await Artist.destroy({
+    const deleteData = await Music.destroy({
       where: {
         id: idParam,
       },

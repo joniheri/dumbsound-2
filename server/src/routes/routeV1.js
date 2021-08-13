@@ -55,13 +55,21 @@ router.delete("/delete-artist/:idParam", deleteArtist);
 // EndArtistRoute
 
 // ArtistRoute
-const { getMusics } = require("../controllers/versi1/Music");
+const {
+  getMusics,
+  getMusicsBelongstoArtis,
+  getMusictById,
+  addMusic,
+  updateMusic,
+  deleteMusic,
+} = require("../controllers/versi1/Music");
 
 router.get("/musics", getMusics);
-// router.get("/artist/:idParam", getArtistById);
-// router.post("/add-artist", addArtist);
-// router.patch("/update-artist/:idParam", updateArtist);
-// router.delete("/delete-artist/:idParam", deleteArtist);
+router.get("/musics-artist", getMusicsBelongstoArtis);
+router.get("/music/:idParam", getMusictById);
+router.post("/add-music", addMusic);
+router.patch("/update-music/:idParam", updateMusic);
+router.delete("/delete-music/:idParam", deleteMusic);
 // EndArtistRoute
 
 // AuthorRoute
