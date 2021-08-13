@@ -64,4 +64,32 @@ router.get("/musics", getMusics);
 // router.delete("/delete-artist/:idParam", deleteArtist);
 // EndArtistRoute
 
+// AuthorRoute
+const {
+  getAuthors,
+  getAuthorsBelongsToManyBook,
+} = require("../controllers/versi1/Author");
+
+router.get("/authors", getAuthors);
+router.get("/authors-book", getAuthorsBelongsToManyBook);
+// router.get("/artist/:idParam", getArtistById);
+// router.post("/add-artist", addArtist);
+// router.patch("/update-artist/:idParam", updateArtist);
+// router.delete("/delete-artist/:idParam", deleteArtist);
+// EndAuthorRoute
+
+// AuthorRoute
+const {
+  getBooks,
+  getBooksBelongsToManyAuthor,
+} = require("../controllers/versi1/Book");
+
+router.get("/books", getBooks);
+router.get("/book-author", getBooksBelongsToManyAuthor);
+// router.get("/artist/:idParam", getArtistById);
+// router.post("/add-artist", addArtist);
+// router.patch("/update-artist/:idParam", updateArtist);
+// router.delete("/delete-artist/:idParam", deleteArtist);
+// EndAuthorRoute
+
 module.exports = router;
