@@ -1,15 +1,15 @@
-const { User } = require("../../../models");
+const { Artist, Music } = require("../../../models");
 
-// GetUsersFunction
-exports.getUsers = async (req, res) => {
+// GetArtistsFunction
+exports.getArtists = async (req, res) => {
   try {
-    const getUsers = await User.findAll({
+    const getDatas = await Artist.findAll({
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
     });
 
-    if (getUsers == null) {
+    if (getDatas == null) {
       return res.send({
         response: "Response Failed",
         status: "Data is empty!",
@@ -19,8 +19,8 @@ exports.getUsers = async (req, res) => {
     res.send({
       response: "Response Success",
       status: "Get data Success.",
-      dataCount: getUsers.length,
-      data: getUsers,
+      dataCount: getDatas.length,
+      data: getDatas,
     });
   } catch (error) {
     return res.send({
@@ -30,26 +30,65 @@ exports.getUsers = async (req, res) => {
     });
   }
 };
-// EndGetUsersFunction
+// EndGetArtistsFunction
 
-//  GetUserByIdFunction
-exports.getUserById = async (req, res) => {
+// GetArtistsHasManyMusicFunction
+exports.getArtistsHasManyMusic = async (req, res) => {
   try {
-    const { id } = req.params;
+    const getDatas = await Artist.findAll({
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+      include: {
+        model: Music,
+        as: "music",
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "artistId", "ArtistId"],
+        },
+      },
+    });
 
-    const getUser = await User.findOne({
+    if (getDatas == null) {
+      return res.send({
+        response: "Response Failed",
+        status: "Data is empty!",
+      });
+    }
+
+    res.send({
+      response: "Response Success",
+      status: "Get data Success.",
+      dataCount: getDatas.length,
+      data: getDatas,
+    });
+  } catch (error) {
+    return res.send({
+      response: "Response Failed",
+      status: "Get data Error!",
+      error: error,
+    });
+  }
+};
+// EndGetArtistsHasManyFunction
+
+//  GetArtistByIdFunction
+exports.getArtistById = async (req, res) => {
+  try {
+    const { idParam } = req.params;
+
+    const getData = await Artist.findOne({
       where: {
-        id: id,
+        id: idParam,
       },
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
     });
 
-    if (getUser == null) {
+    if (getData == null) {
       return res.send({
         response: "Response Failed",
-        status: `Data with id ${id} Not Found!`,
+        status: `Data with id ${idParam} Not Found!`,
         data: null,
       });
     }
@@ -57,8 +96,8 @@ exports.getUserById = async (req, res) => {
     res.send({
       response: "Response Success",
       status: "Get data Success.",
-      idParam: id,
-      data: getUser,
+      idParam: idParam,
+      data: getData,
     });
   } catch (error) {
     return res.send({
@@ -68,33 +107,15 @@ exports.getUserById = async (req, res) => {
     });
   }
 };
-// EndGetUserByIdFunction
+// EndGetArtistByIdFunction
 
-// AddUserFunction
-exports.addUser = async (req, res) => {
+// AddArtistFunction
+exports.addArtist = async (req, res) => {
   try {
-    // check the same email
-    const emailBody = req.body.email;
-    const checkEmail = await User.findOne({
-      where: {
-        email: emailBody,
-      },
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    });
-    if (checkEmail != null) {
-      return res.send({
-        response: "Response Failed",
-        status: `Data with email ${emailBody} is already exist!`,
-      });
-    }
-    // end check the same email
-
     // AddData
-    const dataAdded = req.body; //Data will Added
-    const addData = await User.create(dataAdded);
-    if (!addData) {
+    const dataAdd = req.body; //Data will Added
+    const dataAdded = await Artist.create(dataAdd);
+    if (!dataAdded) {
       return res.send({
         response: "Response Failed",
         status: `Add data Failed!`,
@@ -102,10 +123,28 @@ exports.addUser = async (req, res) => {
     }
     // EndAddData
 
+    // GetArtistById
+    const idArtist = dataAdded.id;
+    const getData = await Artist.findOne({
+      where: {
+        id: idArtist,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+    if (getData == null) {
+      return res.send({
+        response: "Response Failed",
+        status: `Data with id ${idArtist} Not Found!`,
+        data: null,
+      });
+    }
+
     res.send({
       response: "Response Success",
       status: "Add data Success.",
-      dataAdded: addData,
+      dataAdded: getData,
     });
   } catch (error) {
     return res.send({
@@ -115,15 +154,15 @@ exports.addUser = async (req, res) => {
     });
   }
 };
-// EndAddUserFunction
+// EndAddArtistFunction
 
-// UpdateUserFunction
-exports.updateUser = async (req, res) => {
+// UpdateArtistFunction
+exports.updateArtist = async (req, res) => {
   try {
-    const idParam = req.params.idparam;
+    const { idParam } = req.params;
 
     // CheckDataById
-    const getUserById = await User.findOne({
+    const getDataById = await Artist.findOne({
       where: {
         id: idParam,
       },
@@ -131,7 +170,7 @@ exports.updateUser = async (req, res) => {
         exclude: ["createdAt", "updatedAt"],
       },
     });
-    if (getUserById == null) {
+    if (getDataById == null) {
       return res.send({
         response: "Response Failed",
         status: `Data with id ${idParam} Not Found!`,
@@ -140,35 +179,24 @@ exports.updateUser = async (req, res) => {
     }
     // EndCheckDataById
 
-    // check the same email
-    const emailBody = req.body.email;
-    const checkEmail = await User.findOne({
-      where: {
-        email: emailBody,
-      },
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    });
-    if (checkEmail != null) {
-      return res.send({
-        response: "Response Failed",
-        status: `Data with email ${emailBody} is already exist!`,
-      });
-    }
-    // end check the same email
-
     // UpdateData
     const dataUpdate = req.body; //Data will updated
-    const updateData = await User.update(dataUpdate, {
+    const dataUpdated = await Artist.update(dataUpdate, {
       where: {
         id: idParam,
       },
     });
+    if (!dataUpdated) {
+      return res.send({
+        response: "Response Failed",
+        status: `Update Data Failed!`,
+        data: null,
+      });
+    }
     // EndUpdateData
 
-    // getUserAfterUpdateById
-    const getUserAfterUpdateById = await User.findOne({
+    // getDataAfterUpdateById
+    const getDataAfterUpdateById = await Artist.findOne({
       where: {
         id: idParam,
       },
@@ -176,7 +204,9 @@ exports.updateUser = async (req, res) => {
         exclude: ["createdAt", "updatedAt"],
       },
     });
-    if (getUserAfterUpdateById == null) {
+    // getDataAfterUpdateById
+
+    if (getDataAfterUpdateById == null) {
       return res.send({
         response: "Response Failed",
         status: `Data with id ${idParam} Not Found!`,
@@ -189,7 +219,7 @@ exports.updateUser = async (req, res) => {
       response: "Response Success",
       status: "Update data Success.",
       idParam: idParam,
-      dataUpdated: getUserAfterUpdateById,
+      dataUpdated: getDataAfterUpdateById,
     });
   } catch (error) {
     return res.send({
@@ -199,15 +229,15 @@ exports.updateUser = async (req, res) => {
     });
   }
 };
-// EndUpdateUserFunction
+// EndUpdateArtistFunction
 
-// DeleteUserFunction
-exports.deleteUser = async (req, res) => {
+// DeleteArtistFunction
+exports.deleteArtist = async (req, res) => {
   try {
-    const idParam = req.params.idparam;
+    const { idParam } = req.params;
 
     // CheckDataById
-    const getUserById = await User.findOne({
+    const getDataById = await Artist.findOne({
       where: {
         id: idParam,
       },
@@ -215,7 +245,7 @@ exports.deleteUser = async (req, res) => {
         exclude: ["createdAt", "updatedAt"],
       },
     });
-    if (getUserById == null) {
+    if (getDataById == null) {
       return res.send({
         response: "Response Failed",
         status: `Data with id ${idParam} Not Found!`,
@@ -225,7 +255,7 @@ exports.deleteUser = async (req, res) => {
     // EndCheckDataById
 
     // DeleteData
-    const deleteData = await User.destroy({
+    const deleteData = await Artist.destroy({
       where: {
         id: idParam,
       },
@@ -251,7 +281,7 @@ exports.deleteUser = async (req, res) => {
     });
   }
 };
-// EndDeleteUserFunction
+// EndDeleteArtistFunction
 
 // Template Function
 exports.templateFunction = async (req, res) => {

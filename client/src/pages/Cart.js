@@ -53,7 +53,7 @@ export default function Cart() {
               textAlign: "center",
             }}
           >
-            Chart Empty!
+            Cart Empty!
           </h3>
         ) : (
           <>

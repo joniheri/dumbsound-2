@@ -36,4 +36,32 @@ router.patch("/update-user/:idparam", updateUser);
 router.delete("/delete-user/:idparam", deleteUser);
 // EndUsersRouter
 
+// ArtistRoute
+const {
+  getArtists,
+  getArtistsHasManyMusic,
+  getArtistById,
+  addArtist,
+  updateArtist,
+  deleteArtist,
+} = require("../controllers/versi1/Atist");
+
+router.get("/artists", getArtists);
+router.get("/artists-music", getArtistsHasManyMusic);
+router.get("/artist/:idParam", getArtistById);
+router.post("/add-artist", addArtist);
+router.patch("/update-artist/:idParam", updateArtist);
+router.delete("/delete-artist/:idParam", deleteArtist);
+// EndArtistRoute
+
+// ArtistRoute
+const { getMusics } = require("../controllers/versi1/Music");
+
+router.get("/musics", getMusics);
+// router.get("/artist/:idParam", getArtistById);
+// router.post("/add-artist", addArtist);
+// router.patch("/update-artist/:idParam", updateArtist);
+// router.delete("/delete-artist/:idParam", deleteArtist);
+// EndArtistRoute
+
 module.exports = router;
