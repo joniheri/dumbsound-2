@@ -1,3 +1,7 @@
+// import joi
+const joi = require("joi");
+
+// import models
 const { Artist, Music } = require("../../../models");
 
 // GetArtistsFunction
@@ -112,8 +116,26 @@ exports.getArtistById = async (req, res) => {
 // AddArtistFunction
 exports.addArtist = async (req, res) => {
   try {
-    // AddData
     const dataAdd = req.body; //Data will Added
+
+    // ChekcValidationInput
+    const schema = joi.object({
+      name: joi.string().min(1).required(),
+      old: joi.string().min(1).required(),
+      type: joi.string().min(2).required(),
+      startCareer: joi.string().min(4).required(),
+    });
+    const { error } = schema.validate(dataAdd);
+    if (error) {
+      return res.send({
+        response: "Response Failed",
+        status: error.details[0].message,
+        data: dataAdd,
+      });
+    }
+    // EndChekcValidationInput
+
+    // AddData
     const dataAdded = await Artist.create(dataAdd);
     if (!dataAdded) {
       return res.send({
@@ -140,6 +162,7 @@ exports.addArtist = async (req, res) => {
         data: null,
       });
     }
+    // EndGetArtistById
 
     res.send({
       response: "Response Success",
@@ -154,9 +177,9 @@ exports.addArtist = async (req, res) => {
     });
   }
 };
-// EndAddArtistFunction
+// EndAddArtist Function
 
-// UpdateArtistFunction
+// UpdateArtist Function
 exports.updateArtist = async (req, res) => {
   try {
     const { idParam } = req.params;
@@ -229,7 +252,7 @@ exports.updateArtist = async (req, res) => {
     });
   }
 };
-// EndUpdateArtistFunction
+// EndUpdateArtist Function
 
 // DeleteArtistFunction
 exports.deleteArtist = async (req, res) => {
