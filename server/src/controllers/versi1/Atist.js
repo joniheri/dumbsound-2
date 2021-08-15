@@ -4,7 +4,7 @@ const joi = require("joi");
 // import models
 const { Artist, Music } = require("../../../models");
 
-// GetArtistsFunction
+// Function GetArtists
 exports.getArtists = async (req, res) => {
   try {
     const getDatas = await Artist.findAll({
@@ -34,9 +34,9 @@ exports.getArtists = async (req, res) => {
     });
   }
 };
-// EndGetArtistsFunction
+// End Function GetArtists
 
-// GetArtistsHasManyMusicFunction
+// Function GetArtistsHasManyMusic
 exports.getArtistsHasManyMusic = async (req, res) => {
   try {
     const getDatas = await Artist.findAll({
@@ -73,9 +73,9 @@ exports.getArtistsHasManyMusic = async (req, res) => {
     });
   }
 };
-// EndGetArtistsHasManyFunction
+// End Function GetArtistsHasMany
 
-//  GetArtistByIdFunction
+//  Function GetArtistById
 exports.getArtistById = async (req, res) => {
   try {
     const { idParam } = req.params;
@@ -111,9 +111,9 @@ exports.getArtistById = async (req, res) => {
     });
   }
 };
-// EndGetArtistByIdFunction
+// End Function GetArtistById
 
-// AddArtistFunction
+// Function AddArtist
 exports.addArtist = async (req, res) => {
   try {
     const dataAdd = req.body; //Data will Added
@@ -177,9 +177,9 @@ exports.addArtist = async (req, res) => {
     });
   }
 };
-// EndAddArtist Function
+// End Function AddArtist
 
-// UpdateArtist Function
+// Function UpdateArtist
 exports.updateArtist = async (req, res) => {
   try {
     const { idParam } = req.params;
@@ -252,9 +252,9 @@ exports.updateArtist = async (req, res) => {
     });
   }
 };
-// EndUpdateArtist Function
+// End Function UpdateArtist
 
-// DeleteArtistFunction
+// Function DeleteArtist
 exports.deleteArtist = async (req, res) => {
   try {
     const { idParam } = req.params;
@@ -304,7 +304,7 @@ exports.deleteArtist = async (req, res) => {
     });
   }
 };
-// EndDeleteArtistFunction
+// End Function DeleteArtist
 
 // Template Function
 exports.templateFunction = async (req, res) => {

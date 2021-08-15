@@ -1,6 +1,6 @@
 const { Author, Book } = require("../../../models");
 
-// GetBooks Function
+// Function GetBooks
 exports.getBooks = async (req, res) => {
   try {
     const getDatas = await Book.findAll({
@@ -30,9 +30,9 @@ exports.getBooks = async (req, res) => {
     });
   }
 };
-// EndGetAuthors Function
+// End Function GetAuthors
 
-// GetAuthorBelongsToManyBook Function
+// Function GetAuthorBelongsToManyBook
 exports.getBooksBelongsToManyAuthor = async (req, res) => {
   try {
     const getDatas = await Book.findAll({
@@ -69,9 +69,9 @@ exports.getBooksBelongsToManyAuthor = async (req, res) => {
     });
   }
 };
-// EndGetAuthorBelongsToManyBook Function
+// End Function GetAuthorBelongsToManyBook
 
-//  GetArtistByIdFunction
+//  Function GetArtistById
 exports.getArtistById = async (req, res) => {
   try {
     const { idParam } = req.params;
@@ -107,9 +107,9 @@ exports.getArtistById = async (req, res) => {
     });
   }
 };
-// EndGetArtistById Function
+// End Function GetArtistById
 
-// AddArtist Function
+// Function AddArtist
 exports.addArtist = async (req, res) => {
   try {
     // AddData
@@ -154,9 +154,9 @@ exports.addArtist = async (req, res) => {
     });
   }
 };
-// EndAddArtist Function
+// End Function AddArtist
 
-// UpdateArtist Function
+// Function UpdateArtist
 exports.updateArtist = async (req, res) => {
   try {
     const { idParam } = req.params;
@@ -229,9 +229,9 @@ exports.updateArtist = async (req, res) => {
     });
   }
 };
-// EndUpdateArtist Function
+// End Function UpdateArtist
 
-// DeleteArtistFunction
+// Function DeleteArtist
 exports.deleteArtist = async (req, res) => {
   try {
     const { idParam } = req.params;
@@ -281,7 +281,7 @@ exports.deleteArtist = async (req, res) => {
     });
   }
 };
-// EndDeleteArtist Function
+// End Function DeleteArtist
 
 // Template Function
 exports.templateFunction = async (req, res) => {

@@ -1,6 +1,6 @@
 const { User } = require("../../../models");
 
-// GetUsersFunction
+// Function GetUsers
 exports.getUsers = async (req, res) => {
   try {
     const getUsers = await User.findAll({
@@ -30,9 +30,9 @@ exports.getUsers = async (req, res) => {
     });
   }
 };
-// EndGetUsersFunction
+// End Function GetUsers
 
-//  GetUserByIdFunction
+//  Function GetUserById
 exports.getUserById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -68,9 +68,9 @@ exports.getUserById = async (req, res) => {
     });
   }
 };
-// EndGetUserByIdFunction
+// End Function GetUserById
 
-// AddUserFunction
+// Function AddUser
 exports.addUser = async (req, res) => {
   try {
     // check the same email
@@ -115,9 +115,9 @@ exports.addUser = async (req, res) => {
     });
   }
 };
-// EndAddUserFunction
+// End Function AddUser
 
-// UpdateUserFunction
+// Function UpdateUser
 exports.updateUser = async (req, res) => {
   try {
     const idParam = req.params.idparam;
@@ -199,9 +199,9 @@ exports.updateUser = async (req, res) => {
     });
   }
 };
-// EndUpdateUserFunction
+// End Function UpdateUser
 
-// DeleteUserFunction
+// Function DeleteUser
 exports.deleteUser = async (req, res) => {
   try {
     const idParam = req.params.idparam;
@@ -251,7 +251,7 @@ exports.deleteUser = async (req, res) => {
     });
   }
 };
-// EndDeleteUserFunction
+// End Function DeleteUser
 
 // Template Function
 exports.templateFunction = async (req, res) => {

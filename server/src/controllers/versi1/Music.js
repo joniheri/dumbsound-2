@@ -1,6 +1,6 @@
 const { Music, Artist } = require("../../../models");
 
-// GetMusics Function
+// Function GetMusics
 exports.getMusics = async (req, res) => {
   try {
     const getDatas = await Music.findAll({
@@ -32,7 +32,7 @@ exports.getMusics = async (req, res) => {
 };
 // EndGetMusics Function
 
-// GetMusicsBelongsToArtist Function
+// Function GetMusicsBelongsToArtist
 exports.getMusicsBelongstoArtis = async (req, res) => {
   try {
     const getDatas = await Music.findAll({
@@ -69,9 +69,9 @@ exports.getMusicsBelongstoArtis = async (req, res) => {
     });
   }
 };
-// EndGetMusicsBelongsToArtist Function
+// End Function GetMusicsBelongsToArtist
 
-//  GetMusicById Function
+// Function GetMusicById
 exports.getMusictById = async (req, res) => {
   try {
     const { idParam } = req.params;
@@ -114,9 +114,9 @@ exports.getMusictById = async (req, res) => {
     });
   }
 };
-// EndGetMusicById Function
+// End Function GetMusicById
 
-// AddMusic Function
+// Function AddMusic
 exports.addMusic = async (req, res) => {
   try {
     // AddData
@@ -162,9 +162,9 @@ exports.addMusic = async (req, res) => {
     });
   }
 };
-// EndAddMusic Function
+// End Function AddMusic
 
-// UpdateMusic Function
+// Function UpdateMusic
 exports.updateMusic = async (req, res) => {
   try {
     const { idParam } = req.params;
@@ -244,9 +244,9 @@ exports.updateMusic = async (req, res) => {
     });
   }
 };
-// EndUpdateMusic Function
+// End Function UpdateMusic
 
-// DeleteArtistFunction
+// Function DeleteArtist
 exports.deleteMusic = async (req, res) => {
   try {
     const { idParam } = req.params;
@@ -296,7 +296,7 @@ exports.deleteMusic = async (req, res) => {
     });
   }
 };
-// EndDeleteArtistFunction
+// End Function DeleteArtist
 
 // Template Function
 exports.templateFunction = async (req, res) => {
