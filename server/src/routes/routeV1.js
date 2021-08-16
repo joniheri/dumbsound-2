@@ -44,7 +44,7 @@ const {
   addArtist,
   updateArtist,
   deleteArtist,
-} = require("../controllers/versi1/Atist");
+} = require("../controllers/versi1/Artist");
 
 router.get("/artists", getArtists);
 router.get("/artists-music", getArtistsHasManyMusic);

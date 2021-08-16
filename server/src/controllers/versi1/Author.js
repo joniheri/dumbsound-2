@@ -109,11 +109,32 @@ exports.getArtistById = async (req, res) => {
 };
 // End Function GetArtistById
 
-// Function AddArtist
+// Function AddAuthor
 exports.addArtist = async (req, res) => {
   try {
-    // AddData
     const dataAdd = req.body; //Data will Added
+
+    // ChekcValidationInput
+    const schema = joi.object({
+      email: joi.string().email().min(6).required(),
+      password: joi.string().min(6).required(),
+      fullname: joi.string().min(1).required(),
+      gender: joi.string().min(4).required(),
+      phone: joi.string().min(10).required(),
+      address: joi.string().min(2).required(),
+      level: joi.string(),
+    });
+    const { error } = schema.validate(dataAdd);
+    if (error) {
+      return res.send({
+        response: "Response Failed",
+        status: error.details[0].message,
+        data: dataAdd,
+      });
+    }
+    // EndChekcValidationInput
+
+    // AddData
     const dataAdded = await Artist.create(dataAdd);
     if (!dataAdded) {
       return res.send({

@@ -35,6 +35,8 @@ exports.getMusics = async (req, res) => {
 // Function GetMusicsBelongsToArtist
 exports.getMusicsBelongstoArtis = async (req, res) => {
   try {
+    const pathFile = process.env.PATCH_UPLOADS;
+
     const getDatas = await Music.findAll({
       attributes: {
         exclude: ["createdAt", "updatedAt", "artistId", "ArtistId"],
@@ -59,6 +61,7 @@ exports.getMusicsBelongstoArtis = async (req, res) => {
       response: "Response Success",
       status: "Get data Success.",
       dataCount: getDatas.length,
+      pathFile,
       data: getDatas,
     });
   } catch (error) {

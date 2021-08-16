@@ -1,3 +1,7 @@
+// import joi
+const joi = require("joi");
+
+// import models
 const { User } = require("../../../models");
 
 // Function GetUsers
@@ -73,7 +77,29 @@ exports.getUserById = async (req, res) => {
 // Function AddUser
 exports.addUser = async (req, res) => {
   try {
-    // check the same email
+    const dataAdd = req.body; //Data will Added
+
+    // ChekcValidationInput
+    const schema = joi.object({
+      email: joi.string().email().min(6).required(),
+      password: joi.string().min(6).required(),
+      fullname: joi.string().min(1).required(),
+      gender: joi.string().min(4).required(),
+      phone: joi.string().min(10).required(),
+      address: joi.string().min(2).required(),
+      level: joi.string(),
+    });
+    const { error } = schema.validate(dataAdd);
+    if (error) {
+      return res.send({
+        response: "Response Failed",
+        status: error.details[0].message,
+        data: dataAdd,
+      });
+    }
+    // EndChekcValidationInput
+
+    // CheckDplicateEmail
     const emailBody = req.body.email;
     const checkEmail = await User.findOne({
       where: {
@@ -89,12 +115,11 @@ exports.addUser = async (req, res) => {
         status: `Data with email ${emailBody} is already exist!`,
       });
     }
-    // end check the same email
+    // EndCheckDplicateEmail
 
     // AddData
-    const dataAdded = req.body; //Data will Added
-    const addData = await User.create(dataAdded);
-    if (!addData) {
+    const dataAdded = await User.create(dataAdd);
+    if (!dataAdded) {
       return res.send({
         response: "Response Failed",
         status: `Add data Failed!`,
@@ -102,10 +127,28 @@ exports.addUser = async (req, res) => {
     }
     // EndAddData
 
+    // GetDataAddedById
+    const idAdded = dataAdded.id;
+    const dataAddedById = await User.findOne({
+      where: {
+        id: idAdded,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+    if (dataAddedById == null) {
+      return res.send({
+        response: "Response Failed",
+        status: `Data with ID ${idAdded} Not Found!`,
+      });
+    }
+    // EndGetDataAddedById
+
     res.send({
       response: "Response Success",
       status: "Add data Success.",
-      dataAdded: addData,
+      dataAdded: dataAddedById,
     });
   } catch (error) {
     return res.send({
