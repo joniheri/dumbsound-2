@@ -4,6 +4,7 @@ const router = express.Router();
 
 // ImportMiddleware
 const { AuthMiddleware } = require("../middleware/Auth");
+const { UploadFiles } = require("../middleware/UploadFiles");
 
 // TodosRouter
 const {
@@ -63,6 +64,7 @@ const {
   getMusicsBelongstoArtis,
   getMusictById,
   addMusic,
+  addMusicWithFile,
   updateMusic,
   deleteMusic,
 } = require("../controllers/versi1/Music");
@@ -72,6 +74,7 @@ router.get("/musics-artist-public", getMusicsBelongstoArtis);
 router.get("/musics-artist-user", AuthMiddleware, getMusicsBelongstoArtis);
 router.get("/music/:idParam", getMusictById);
 router.post("/add-music", addMusic);
+router.post("/add-music-file", UploadFiles("imageFile"), addMusicWithFile);
 router.patch("/update-music/:idParam", updateMusic);
 router.delete("/delete-music/:idParam", deleteMusic);
 // EndMusicRoute

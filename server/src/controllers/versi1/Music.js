@@ -41,7 +41,7 @@ exports.getMusicsBelongstoArtis = async (req, res) => {
     const dataAutMiddleware = req.user;
     // EndCheckDataFromMiddleware
 
-    const pathFileImg = process.env.PATCH_UPLOADS_IMG;
+    const pathFile = process.env.PATCH_UPLOADS;
 
     let getDatas = await Music.findAll({
       attributes: {
@@ -68,7 +68,7 @@ exports.getMusicsBelongstoArtis = async (req, res) => {
     getDatas = parseJSON.map((item) => {
       return {
         ...item,
-        thumbnail: pathFileImg + item.thumbnail,
+        thumbnail: pathFile + item.thumbnail,
       };
     });
 
@@ -200,6 +200,81 @@ exports.addMusic = async (req, res) => {
   }
 };
 // End Function AddMusic
+
+// Function AddMusicWithFile
+exports.addMusicWithFile = async (req, res) => {
+  try {
+    const dataAdd = req.body; //Data will Added
+
+    // ChekcValidationInput
+    const schema = joi.object({
+      title: joi.string().min(1).required(),
+      year: joi.string().min(1).required(),
+      thumbnail: joi.string(),
+      attache: joi.string(),
+      artistId: joi.string().min(1).required(),
+    });
+    const { error } = schema.validate(dataAdd);
+    if (error) {
+      return res.send({
+        response: "Response Failed",
+        status: error.details[0].message,
+        data: dataAdd,
+      });
+    }
+    // EndChekcValidationInput
+
+    // ModifValueDataInput
+    const thumbnail = req.files.imageFile[0].filename;
+    const dataWithUpload = {
+      ...dataAdd,
+      thumbnail,
+    };
+    // ModifValueDataInput
+
+    // AddData
+    const dataAdded = await Music.create(dataWithUpload);
+    if (!dataAdded) {
+      return res.send({
+        response: "Response Failed",
+        status: `Add data Failed!`,
+      });
+    }
+    // EndAddData
+
+    // GetDataById
+    const idMusic = dataAdded.id;
+    const getData = await Music.findOne({
+      where: {
+        id: idMusic,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "artistId", "ArtistId"],
+      },
+    });
+    if (getData == null) {
+      return res.send({
+        response: "Response Failed",
+        status: `Data with id ${idMusic} Not Found!`,
+        data: null,
+      });
+    }
+    // GetDataById
+
+    res.send({
+      response: "Response Success",
+      status: "Add data Success.",
+      dataAdded: getData,
+    });
+  } catch (error) {
+    return res.send({
+      response: "Response Failed",
+      status: "Add Data Error!",
+      error: error,
+    });
+  }
+};
+// End Function AddMusicWithFile
 
 // Function UpdateMusic
 exports.updateMusic = async (req, res) => {
