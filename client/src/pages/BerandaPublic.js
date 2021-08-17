@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 
 // impost object bootstrap
@@ -12,7 +12,7 @@ import ModalLogin from "../components/modal/ModalLogin";
 import ModalRegister from "../components/modal/ModalRegister";
 
 // import config
-// import { API } from "../config/Api";
+import { API } from "../config/Api";
 
 // import img
 // import Rectangle1 from "../img/Rectangle1.png";
@@ -20,7 +20,23 @@ import ModalRegister from "../components/modal/ModalRegister";
 export default function BerandaPublic({ stateLogin, setStateLogin }) {
   const [loginShow, setLoginShow] = useState(false);
   const [registerShow, setRegisterShow] = useState(false);
-  // const [music, setMusic] = useState([]);
+  const [music, setMusic] = useState([]);
+
+  // loadDatasMusic
+  const loadMusic = async () => {
+    try {
+      const response = await API.get("/musics-artist");
+      setMusic(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    loadMusic();
+  }, []);
+  // EndLoadDatasMusic
+
+  console.log("DataMusic:", music);
 
   return (
     <Container fluid>
@@ -77,9 +93,9 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
               Dengarkan Dan Rasakan
             </p>
           </Col>
-          <Col sm={12}>
+          {/* <Col sm={12}>
             <Row>
-              {/* {music?.map((dataMusic, index) => (
+              {music?.map((dataMusic, index) => (
                 <Col md={2} style={{ marginBottom: "20px" }}>
                   <Link
                     onClick={onSwitchLogin}
@@ -97,9 +113,9 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
                     </Card>
                   </Link>
                 </Col>
-              ))} */}
+              ))}
             </Row>
-          </Col>
+          </Col> */}
         </Row>
 
         <ModalLogin

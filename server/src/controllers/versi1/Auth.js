@@ -1,4 +1,4 @@
-const { User } = require("../../models");
+const { User } = require("../../../models");
 const joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -10,18 +10,17 @@ exports.registerAuth = async (req, res) => {
 
     // console.log(data);
 
+    // CheckValidationInput
     const schema = joi.object({
       fullname: joi.string().min(3).required(),
       email: joi.string().email().min(8).required(),
       password: joi.string().min(6).required(),
       gender: joi.string().min(4).required(),
       phone: joi.string().min(10).required(),
-      address: joi.string().min(6).required(),
+      address: joi.string().min(3).required(),
       level: joi.string().min(4),
     });
-
     const { error } = schema.validate(data);
-
     if (error) {
       return res.send({
         status: "Validate Failed",
@@ -29,13 +28,12 @@ exports.registerAuth = async (req, res) => {
         data: data,
       });
     }
-
-    const { fullname, email, password, gender, phone, address, level } = data;
+    // EndCheckValidationInput
 
     // check "email user" is exist
     const findEmail = await User.findOne({
       where: {
-        email: email,
+        email: data.email,
       },
       attributes: {
         exclude: ["createdAt", "updatedAt"],
@@ -44,7 +42,7 @@ exports.registerAuth = async (req, res) => {
     if (findEmail) {
       return res.send({
         status: "Failed",
-        message: `Email: ${email} already registered`,
+        message: `Email: ${data.email} already registered`,
         dataFindEmail: findEmail,
       });
     }
@@ -52,7 +50,7 @@ exports.registerAuth = async (req, res) => {
 
     // bcryptPassword
     const hashStrenght = 10;
-    const hashedPassword = await bcrypt.hash(password, hashStrenght);
+    const hashedPassword = await bcrypt.hash(data.password, hashStrenght);
     // endBcryptPassword
 
     // input data to database
@@ -126,7 +124,7 @@ exports.loginAuth = async (req, res) => {
     if (!findEmail) {
       return res.send({
         status: "Failed",
-        message: `The Email or Password you entered does not match!`,
+        message: `Email or Password you entered does not match!`,
       });
     }
     // end check "email" is exist
@@ -136,16 +134,11 @@ exports.loginAuth = async (req, res) => {
     if (!findPassword) {
       return res.send({
         status: "Failed",
-        message: `The Email or Password you entered does not match!`,
+        message: `Email or Password you entered does not match!`,
         passwordBycript: findPassword,
       });
     }
     // end check "password" is match with email
-
-    // bcryptPassword
-    const hashStrenght = 10;
-    const hashedPassword = await bcrypt.hash(password, hashStrenght);
-    // endBcryptPassword
 
     // make token
     const secretKey = process.env.SECRET_KEY;

@@ -2,6 +2,9 @@ const express = require("express");
 
 const router = express.Router();
 
+// ImportMiddleware
+const { AuthMiddleware } = require("../middleware/Auth");
+
 // TodosRouter
 const {
   getTodos,
@@ -54,7 +57,7 @@ router.patch("/update-artist/:idParam", updateArtist);
 router.delete("/delete-artist/:idParam", deleteArtist);
 // EndArtistRoute
 
-// ArtistRoute
+// MusicRoute
 const {
   getMusics,
   getMusicsBelongstoArtis,
@@ -64,13 +67,14 @@ const {
   deleteMusic,
 } = require("../controllers/versi1/Music");
 
-router.get("/musics", getMusics);
-router.get("/musics-artist", getMusicsBelongstoArtis);
+router.get("/musicspublic", getMusics);
+router.get("/musics-artist-public", getMusicsBelongstoArtis);
+router.get("/musics-artist-user", AuthMiddleware, getMusicsBelongstoArtis);
 router.get("/music/:idParam", getMusictById);
 router.post("/add-music", addMusic);
 router.patch("/update-music/:idParam", updateMusic);
 router.delete("/delete-music/:idParam", deleteMusic);
-// EndArtistRoute
+// EndMusicRoute
 
 // AuthorRoute
 const {
@@ -99,5 +103,12 @@ router.get("/book-author", getBooksBelongsToManyAuthor);
 // router.patch("/update-artist/:idParam", updateArtist);
 // router.delete("/delete-artist/:idParam", deleteArtist);
 // EndAuthorRoute
+
+// AuthRoute
+const { registerAuth, loginAuth } = require("../controllers/versi1/Auth");
+
+router.post("/register", registerAuth);
+router.post("/login", loginAuth);
+// EndAuthRoute
 
 module.exports = router;

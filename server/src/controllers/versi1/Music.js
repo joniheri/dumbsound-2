@@ -1,5 +1,7 @@
 const { Music, Artist } = require("../../../models");
 
+const joi = require("joi");
+
 // Function GetMusics
 exports.getMusics = async (req, res) => {
   try {
@@ -35,9 +37,13 @@ exports.getMusics = async (req, res) => {
 // Function GetMusicsBelongsToArtist
 exports.getMusicsBelongstoArtis = async (req, res) => {
   try {
-    const pathFile = process.env.PATCH_UPLOADS;
+    // CheckDataFromMiddleware
+    const dataAutMiddleware = req.user;
+    // EndCheckDataFromMiddleware
 
-    const getDatas = await Music.findAll({
+    const pathFileImg = process.env.PATCH_UPLOADS_IMG;
+
+    let getDatas = await Music.findAll({
       attributes: {
         exclude: ["createdAt", "updatedAt", "artistId", "ArtistId"],
       },
@@ -57,11 +63,20 @@ exports.getMusicsBelongstoArtis = async (req, res) => {
       });
     }
 
+    const parseJSON = JSON.parse(JSON.stringify(getDatas));
+
+    getDatas = parseJSON.map((item) => {
+      return {
+        ...item,
+        thumbnail: pathFileImg + item.thumbnail,
+      };
+    });
+
     res.send({
       response: "Response Success",
       status: "Get data Success.",
       dataCount: getDatas.length,
-      pathFile,
+      dataAutMiddleware,
       data: getDatas,
     });
   } catch (error) {
@@ -122,8 +137,27 @@ exports.getMusictById = async (req, res) => {
 // Function AddMusic
 exports.addMusic = async (req, res) => {
   try {
-    // AddData
     const dataAdd = req.body; //Data will Added
+
+    // ChekcValidationInput
+    const schema = joi.object({
+      title: joi.string().min(1).required(),
+      year: joi.string().min(1).required(),
+      thumbnail: joi.string(),
+      attache: joi.string(),
+      artistId: joi.string().min(1).required(),
+    });
+    const { error } = schema.validate(dataAdd);
+    if (error) {
+      return res.send({
+        response: "Response Failed",
+        status: error.details[0].message,
+        data: dataAdd,
+      });
+    }
+    // EndChekcValidationInput
+
+    // AddData
     const dataAdded = await Music.create(dataAdd);
     if (!dataAdded) {
       return res.send({

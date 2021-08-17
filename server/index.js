@@ -1,17 +1,20 @@
 // import express module
 const express = require("express");
 
-// import dotenv
-require("dotenv").config();
-
 // use express in app variable
 const app = express();
+
+// import dotenv
+require("dotenv").config();
 
 // make server port
 const port = 4001;
 
 // app use exxpress.json to get req body JSON
 app.use(express.json());
+
+// make static folder
+app.use("/uploads", express.static("uploads"));
 
 // create the homepage route
 app.get("/", (req, res) => {
