@@ -1,6 +1,9 @@
 // import express module
 const express = require("express");
 
+// import cosr module
+const cors = require("cors");
+
 // use express in app variable
 const app = express();
 
@@ -15,6 +18,9 @@ app.use(express.json());
 
 // make static folder
 app.use("/uploads", express.static("uploads"));
+
+// use cors
+app.use(cors());
 
 // create the homepage route
 app.get("/", (req, res) => {

@@ -1,0 +1,884 @@
+{
+	"info": {
+		"_postman_id": "21847aff-159d-4726-8b75-245491eec38c",
+		"name": "DumbSound",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Todos",
+			"item": [
+				{
+					"name": "GetTodos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/todos",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTodo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/todo/2",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"todo",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddTodos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 4,\n    \"title\": \"Add Todo1\",\n    \"isDone\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/addtodo",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"addtodo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTodoPatch",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"title\": \"Add Todo2\",\n    \"isDone\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/updatetodo/1",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"updatetodo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTodoPut",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"title\": \"Add Todo1\",\n    \"isDone\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/updatetodo-put/1",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"updatetodo-put",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTodo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/deletetodo/1",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"deletetodo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TodosV2",
+			"item": [
+				{
+					"name": "GetTodos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v2/todos",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v2",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TbUser",
+			"item": [
+				{
+					"name": "GetUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/users",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/user/2",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jc9@email.com\",\n    \"password\": \"12345678\",\n    \"fullname\": \"Jon Cena\",\n    \"gender\": \"Male\",\n    \"phone\": \"08784782734\",\n    \"address\": \"USA\",\n    \"level\": \"User\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/add-user",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"add-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jc3@email.com\",\n    \"address\": \"Tanggerang\",\n    \"level\": \"User\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/update-user/9",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"update-user",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jc3@email.com\",\n    \"password\": \"12345678\",\n    \"fullname\": \"Jon Cena\",\n    \"gender\": \"Male\",\n    \"phone\": \"08784782734\",\n    \"address\": \"USA\",\n    \"level\": \"User\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/delete-user/142",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"delete-user",
+								"142"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "RegisterAuth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@email.com\",\n    \"password\": \"11111111\",\n    \"fullname\": \"Admin\",\n    \"gender\": \"Male\",\n    \"phone\": \"08784782734\",\n    \"address\": \"USA\",\n    \"level\": \"Super User\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/register",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginAuth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@email.com\",\n    \"password\": \"11111111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/login",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TbArtist",
+			"item": [
+				{
+					"name": "GetArtists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/artists",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"artists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetArtistsHasManyMusic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/artists-music",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"artists-music"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetArtist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/artist/1",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"artist",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddArtist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"JC001\",\n    \"old\": \"30\",\n    \"type\": \"Solois\",\n    \"startCareer\": \"2000\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/add-artist",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"add-artist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteArtist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/delete-artist/4",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"delete-artist",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateArtist",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startCareer\": \"2001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/update-artist/3",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"update-artist",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TbMusic",
+			"item": [
+				{
+					"name": "GetMusics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/musics",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"musics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMusicsToArtistForPublic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/musics-artist-public",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"musics-artist-public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMusicsToArtistForUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImlhdCI6MTYyOTIwNDg2M30.cOB5QkfhDb0VC4Omtl0c04RHI30odUO9XVGFkI5MuTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/musics-artist-user",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"musics-artist-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMusic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/music/1",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"music",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddMusic",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Contoh2\",\n    \"year\": \"2021\",\n    \"thumbnail\": \"Contoh2.png\",\n    \"attache\": \"Contoh2.mp3\",\n    \"artistId\": \"3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/add-music",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"add-music"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddMusicWithFile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Contoh3",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2021",
+									"type": "text"
+								},
+								{
+									"key": "imageFile",
+									"type": "file",
+									"src": "/home/rizkytanjung/jon/JN/Project React JS/dumbsound/server/uploads/img/Rectangle4.png"
+								},
+								{
+									"key": "attache",
+									"value": "contoh2.mp3",
+									"type": "text"
+								},
+								{
+									"key": "artistId",
+									"value": "2",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/add-music-file",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"add-music-file"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateMusic",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"artistId\": \"2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4001/api/v1/update-music/4",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"update-music",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteMusic",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/delete-music/4",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"delete-music",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TbAuthor",
+			"item": [
+				{
+					"name": "GetAuthors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/authors",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAuthorsToBook",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/authors-book",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"authors-book"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TbBook",
+			"item": [
+				{
+					"name": "GetBooks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/books",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBooksToAuthor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4001/api/v1/book-author",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"v1",
+								"book-author"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TbAuthorBook",
+			"item": []
+		},
+		{
+			"name": "TestAPI",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4001",
+					"host": [
+						"localhost"
+					],
+					"port": "4001"
+				}
+			},
+			"response": []
+		}
+	]
+}

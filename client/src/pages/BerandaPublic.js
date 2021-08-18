@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // impost object bootstrap
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Card } from "react-bootstrap";
 
 // impost css
 import "../css/BerandaPublic.css";
@@ -25,8 +25,9 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
   // loadDatasMusic
   const loadMusic = async () => {
     try {
-      const response = await API.get("/musics-artist");
+      const response = await API.get("/musics-artist-public");
       setMusic(response.data.data);
+      // console.log("ResponseDataMusic:", response);
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +37,12 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
   }, []);
   // EndLoadDatasMusic
 
-  console.log("DataMusic:", music);
+  // console.log("DataMusic:", music);
+
+  const onSwitchLogin = () => {
+    setRegisterShow(false);
+    setLoginShow(true);
+  };
 
   return (
     <Container fluid>
@@ -93,7 +99,7 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
               Dengarkan Dan Rasakan
             </p>
           </Col>
-          {/* <Col sm={12}>
+          <Col sm={12}>
             <Row>
               {music?.map((dataMusic, index) => (
                 <Col md={2} style={{ marginBottom: "20px" }}>
@@ -105,17 +111,63 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
                     }}
                   >
                     <Card style={{ background: "#3A3A3A", color: "#fff" }}>
-                      <Card.Img variant="top" src={dataMusic.thumbnail} />
-                      <Card.Body>
-                        <Card.Title>{dataMusic.title}</Card.Title>
-                        <Card.Text>{dataMusic.artist.name}</Card.Text>
+                      <Card.Img
+                        variant="top"
+                        src={dataMusic.thumbnail}
+                        style={{
+                          paddingTop: "6px",
+                          paddingBottom: "10px",
+                          paddingLeft: "6px",
+                          paddingRight: "6px",
+                        }}
+                      />
+                      <Card.Body style={{ padding: "0" }}>
+                        <Card.Title
+                          style={{
+                            fontSize: "17px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          <Row style={{ margin: "0" }}>
+                            <Col
+                              md={8}
+                              style={{
+                                padding: "0",
+                                paddingLeft: "6px",
+                                paddingRight: "6px",
+                              }}
+                            >
+                              {dataMusic.title}
+                            </Col>
+                            <Col
+                              md={4}
+                              style={{
+                                padding: "0",
+                                paddingLeft: "6px",
+                                paddingRight: "6px",
+                                textAlign: "right",
+                              }}
+                            >
+                              {dataMusic.year}
+                            </Col>
+                          </Row>
+                        </Card.Title>
+                        <Card.Title
+                          style={{
+                            fontSize: "13px",
+                            paddingLeft: "6px",
+                            paddingRight: "6px",
+                          }}
+                        >
+                          {dataMusic.artist.name}
+                        </Card.Title>
                       </Card.Body>
                     </Card>
                   </Link>
                 </Col>
               ))}
             </Row>
-          </Col> */}
+          </Col>
         </Row>
 
         <ModalLogin

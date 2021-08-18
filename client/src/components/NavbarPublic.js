@@ -24,7 +24,6 @@ import Vector4 from "../img/Vector4.png";
 
 export default function NavbarPublic({ stateLogin, setStateLogin }) {
   const [state, dispatch] = useContext(AppContext);
-
   const [loginShow, setLoginShow] = useState(false);
   const [registerShow, setRegisterShow] = useState(false);
 
@@ -32,6 +31,7 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
     setRegisterShow(false);
     setLoginShow(true);
   };
+
   const onSwitchRegister = () => {
     setRegisterShow(true);
     setLoginShow(false);
