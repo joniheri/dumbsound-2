@@ -6,6 +6,7 @@ import { Row, Col, Container, Card } from "react-bootstrap";
 
 // impost css
 import "../css/BerandaPublic.css";
+import "../css/LoadingAnimation.css";
 
 // import components
 import ModalLogin from "../components/modal/ModalLogin";
@@ -21,13 +22,16 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
   const [loginShow, setLoginShow] = useState(false);
   const [registerShow, setRegisterShow] = useState(false);
   const [music, setMusic] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // loadDatasMusic
   const loadMusic = async () => {
     try {
+      setLoading(true);
       const response = await API.get("/musics-artist-public");
       setMusic(response.data.data);
       // console.log("ResponseDataMusic:", response);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -100,76 +104,83 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
             </p>
           </Col>
           <Col sm={12}>
-            <Row>
-              {music?.map((dataMusic, index) => (
-                <Col md={2} style={{ marginBottom: "20px" }}>
-                  <Link
-                    onClick={onSwitchLogin}
-                    style={{
-                      cursor: "pointer",
-                      textDecoration: "none",
-                    }}
-                  >
-                    <Card style={{ background: "#3A3A3A", color: "#fff" }}>
-                      <Card.Img
-                        variant="top"
-                        src={dataMusic.thumbnail}
+            {loading ? (
+              <center>
+                <div className="lds-dual-ring"></div>
+              </center>
+            ) : (
+              <>
+                <Row>
+                  {music?.map((dataMusic, index) => (
+                    <Col md={2} style={{ marginBottom: "20px" }}>
+                      <Link
+                        onClick={onSwitchLogin}
                         style={{
-                          paddingTop: "6px",
-                          paddingBottom: "10px",
-                          paddingLeft: "6px",
-                          paddingRight: "6px",
+                          cursor: "pointer",
+                          textDecoration: "none",
                         }}
-                      />
-                      <Card.Body style={{ padding: "0" }}>
-                        <Card.Title
-                          style={{
-                            fontSize: "17px",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          <Row style={{ margin: "0" }}>
-                            <Col
-                              md={8}
+                      >
+                        <Card style={{ background: "#3A3A3A", color: "#fff" }}>
+                          <Card.Img
+                            variant="top"
+                            src={dataMusic.thumbnail}
+                            style={{
+                              paddingTop: "6px",
+                              paddingBottom: "10px",
+                              paddingLeft: "6px",
+                              paddingRight: "6px",
+                            }}
+                          />
+                          <Card.Body style={{ padding: "0" }}>
+                            <Card.Title
                               style={{
-                                padding: "0",
+                                fontSize: "17px",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              <Row style={{ margin: "0" }}>
+                                <Col
+                                  md={8}
+                                  style={{
+                                    padding: "0",
+                                    paddingLeft: "6px",
+                                    paddingRight: "6px",
+                                  }}
+                                >
+                                  {dataMusic.title}
+                                </Col>
+                                <Col
+                                  md={4}
+                                  style={{
+                                    padding: "0",
+                                    paddingLeft: "6px",
+                                    paddingRight: "6px",
+                                    textAlign: "right",
+                                  }}
+                                >
+                                  {dataMusic.year}
+                                </Col>
+                              </Row>
+                            </Card.Title>
+                            <Card.Title
+                              style={{
+                                fontSize: "13px",
                                 paddingLeft: "6px",
                                 paddingRight: "6px",
                               }}
                             >
-                              {dataMusic.title}
-                            </Col>
-                            <Col
-                              md={4}
-                              style={{
-                                padding: "0",
-                                paddingLeft: "6px",
-                                paddingRight: "6px",
-                                textAlign: "right",
-                              }}
-                            >
-                              {dataMusic.year}
-                            </Col>
-                          </Row>
-                        </Card.Title>
-                        <Card.Title
-                          style={{
-                            fontSize: "13px",
-                            paddingLeft: "6px",
-                            paddingRight: "6px",
-                          }}
-                        >
-                          {dataMusic.artist.name}
-                        </Card.Title>
-                      </Card.Body>
-                    </Card>
-                  </Link>
-                </Col>
-              ))}
-            </Row>
+                              {dataMusic.artist.name}
+                            </Card.Title>
+                          </Card.Body>
+                        </Card>
+                      </Link>
+                    </Col>
+                  ))}
+                </Row>
+              </>
+            )}
           </Col>
         </Row>
-
         <ModalLogin
           loginShow={loginShow}
           setLoginShow={setLoginShow}

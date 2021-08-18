@@ -44,10 +44,10 @@ export default function ModalLogin({
       });
       setLoginShow(false);
 
-      // const requestBody = {
-      //   email: formData.email,
-      //   password: formData.password,
-      // };
+      const requestBody = {
+        email: formData.email,
+        password: formData.password,
+      };
 
       // const body = JSON.stringify({ ...requestBody });
 

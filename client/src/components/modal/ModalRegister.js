@@ -3,7 +3,10 @@ import React, { useState } from "react";
 // import component bootstrap
 import { Button, Modal, Form, Alert } from "react-bootstrap";
 
-// import { API } from "../../config/Api";
+import { API } from "../../config/Api";
+
+// Import components
+import ModalAlert from "./ModalAlert";
 
 export default function ModalRegister({
   registerShow,
@@ -11,9 +14,11 @@ export default function ModalRegister({
   setRegisterShow,
 }) {
   const [messageShowFailed, setMessageShowFailed] = useState("");
-  // const [messageShowSuccess, setMessageShowSuccess] = useState(false);
+  const [messageShowSuccess, setMessageShowSuccess] = useState("");
+  const [messageVariant, setMessageVariant] = useState("");
+  const [alertShow, setAlertShow] = useState(false);
 
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     fullname: "",
     email: "",
     password: "",
@@ -23,11 +28,11 @@ export default function ModalRegister({
     level: "User",
   });
 
-  const { fullname, email, password, gender, phone, address, level } = form;
+  // const { fullname, email, password, gender, phone, address, level } = formData;
 
   const handleOnChange = (e) => {
-    setForm({
-      ...form,
+    setFormData({
+      ...formData,
       [e.target.name]: e.target.value,
     });
   };
@@ -38,53 +43,57 @@ export default function ModalRegister({
     try {
       e.preventDefault();
 
-      // const config = {
-      //   headers: {
-      //     "Content-type": "application/json",
-      //   },
-      // };
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
 
-      // const body = JSON.stringify({ ...form });
+      const body = JSON.stringify({ ...formData });
 
-      // // console.log("PrintBody: ", body);
+      // console.log("PrintBody: ", body);
 
-      // const response = await API.post("/registerauth", body, config); //-->this is sintact to inset to database
+      const response = await API.post("/register", body, config); //-->this is sintact to inset to database
 
-      // console.log("DataSaved: ", response);
+      console.log("DataSaved: ", response);
 
-      // // CheckValidationInput
-      // if (response.data.status === "Validate Failed") {
-      //   setMessageShowFailed(response.data.message);
-      // }
-      // // EndCheckValidationInput
+      // CheckValidationInput
+      if (response.data.status === "Validate Failed") {
+        setMessageShowFailed(response.data.message);
+        setMessageVariant("danger");
+      }
+      // EndCheckValidationInput
 
-      // // CheckEmail
-      // else if (response.data.status === "Failed") {
-      //   setMessageShowFailed(response.data.message);
-      // }
-      // // EndCheckEmail
+      // CheckEmail
+      else if (response.data.status === "Failed") {
+        setMessageShowFailed(response.data.message);
+        setMessageVariant("danger");
+      }
+      // EndCheckEmail
 
-      // //CheckEmailOrConnection
-      // else if (response.data.status === "Response Failed") {
-      //   setMessageShowFailed(response.data.message);
-      // }
-      // //EndCheckEmailOrPasswordNotMatch===========
+      //CheckEmailOrConnection
+      else if (response.data.status === "Response Failed") {
+        setMessageShowFailed(response.data.message);
+        setMessageVariant("danger");
+      }
+      //EndCheckEmailOrPasswordNotMatch===========
 
-      // // IfSuccess
-      // else {
-      //   setMessageShowFailed("");
-      //   setForm({
-      //     fullname: "",
-      //     email: "",
-      //     password: "",
-      //     gender: "",
-      //     phone: "",
-      //     address: "",
-      //   });
-      //   setRegisterShow(false);
-      //   setMessageShowSuccess(true);
-      // }
-      // // EndIfSuccess
+      // IfSuccess
+      else {
+        setMessageShowFailed("");
+        setMessageShowSuccess("Register Success.");
+        setFormData({
+          fullname: "",
+          email: "",
+          password: "",
+          gender: "",
+          phone: "",
+          address: "",
+        });
+        setRegisterShow(false);
+        setAlertShow(true);
+      }
+      // EndIfSuccess
     } catch (error) {
       console.log("ErrorTryCath", error);
     }
@@ -98,8 +107,8 @@ export default function ModalRegister({
         onHide={() => {
           setRegisterShow(false);
           setMessageShowFailed("");
-          setForm({
-            ...form,
+          setMessageVariant("");
+          setFormData({
             fullname: "",
             email: "",
             password: "",
@@ -119,8 +128,8 @@ export default function ModalRegister({
           <Modal.Title id="example-modal-sizes-title-sm">Register</Modal.Title>
         </Modal.Header>
         <Modal.Body className="bg-modal" style={{ background: "#1F1F1F" }}>
-          {messageShowFailed && (
-            <Alert variant="danger">{messageShowFailed}</Alert>
+          {messageShowFailed != "" && (
+            <Alert variant={messageVariant}>{messageShowFailed}</Alert>
           )}
           <Form onSubmit={handleOnSubmit}>
             <Form.Group controlId="formFile" className="mb-3">
@@ -254,6 +263,14 @@ export default function ModalRegister({
           </Form>
         </Modal.Body>
       </Modal>
+
+      {/* ModalAlert */}
+      <ModalAlert
+        alertShow={alertShow}
+        setAlertShow={setAlertShow}
+        messageShowSuccess={messageShowSuccess}
+      />
+      {/* EndModalAlert */}
     </div>
   );
 }

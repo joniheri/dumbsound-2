@@ -16,6 +16,7 @@ import Cart from "./pages/Cart";
 import Product from "./pages/Product";
 import DetailProduct from "./pages/DetailProduct";
 import NotFound from "./pages/NotFound";
+import LoadingTest1 from "./pages/LoadingTest1";
 
 export default function AppProject() {
   return (
@@ -25,6 +26,7 @@ export default function AppProject() {
       <Switch>
         <Route exact path="/" component={BerandaPublic} />
         <Route exact path="/product" component={Product} />
+        <Route exact path="/loading1" component={LoadingTest1} />
         <Route
           exact
           path="/detail-product/:idParam"

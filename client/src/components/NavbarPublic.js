@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 import "../css/NavbarPublic.css";
 
 // import components
-import ModalLogin from "../components/modal/ModalLogin";
-import ModalRegister from "../components/modal/ModalRegister";
+import ModalLogin from "./modal/ModalLogin";
+import ModalRegister from "./modal/ModalRegister";
 
 // import context
 import { AppContext } from "../contexts/GlobalContext";
@@ -64,7 +64,7 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link
+            {/* <Nav.Link
               as={Link}
               to="/product"
               style={{
@@ -74,8 +74,18 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
             >
               Product
             </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to="/loading1"
+              style={{
+                marginLeft: "10px",
+                textAlign: "center",
+              }}
+            >
+              Test Loding 1
+            </Nav.Link> */}
           </Nav>
-          <Nav.Link
+          {/* <Nav.Link
             as={Link}
             to="/cart"
             style={{
@@ -85,7 +95,7 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
             }}
           >
             Cart: {state.carts.length}
-          </Nav.Link>
+          </Nav.Link> */}
           {!state.isLogin ? (
             <>
               <Nav.Link
