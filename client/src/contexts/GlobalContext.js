@@ -5,19 +5,27 @@ export const AppContext = createContext();
 const initialState = {
   isLogin: false,
   carts: [],
+  isLoading: true,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
+      localStorage.setItem("token", action.payload.token);
       return {
         ...state,
         isLogin: true,
+        isLoading: false,
       };
     case "LOGOUT":
       return {
         ...state,
         isLogin: false,
+      };
+    case "USER_LOADED":
+      return {
+        ...state,
+        isLogin: true,
       };
     case "ADD_CART":
       const checkExistProduct = state.carts.filter(

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
 // import react-router-dom
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -6,6 +6,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import components
 import NavbarPublic from "./components/NavbarPublic";
 import PrivateRoute from "./components/PrivateRoute";
+
+// import config
+import { API, setAuthToken } from "./config/Api";
+
+// import context
+import { AppContext } from "./contexts/GlobalContext";
 
 // import pages
 import BerandaPublic from "./pages/BerandaPublic";
@@ -18,7 +24,32 @@ import DetailProduct from "./pages/DetailProduct";
 import NotFound from "./pages/NotFound";
 import LoadingTest1 from "./pages/LoadingTest1";
 
+// CheckTokenInLocalStorageIsExist
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+// EndCheckTokenInLocalStorageIsExist
+
 export default function AppProject() {
+  const [state, dispatch] = useContext(AppContext);
+
+  const loadUser = async () => {
+    try {
+      const response = await API.get("/check-auth");
+
+      dispatch({
+        type: "LOGIN",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
   return (
     <Router>
       <NavbarPublic />

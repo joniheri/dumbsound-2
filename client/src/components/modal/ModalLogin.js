@@ -6,6 +6,9 @@ import { Button, Modal, Form, Alert } from "react-bootstrap";
 // impost css
 import "../../css/ModalLogin.css";
 
+// import API
+import { API, setAuthToken } from "../../config/Api";
+
 // import context
 import { AppContext } from "../../contexts/GlobalContext";
 
@@ -19,8 +22,8 @@ export default function ModalLogin({
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    errorMessage: null,
-    variantAlert: "",
+    alertMessage: null,
+    alertVariant: "",
   });
 
   const handleInputChange = (event) => {
@@ -34,85 +37,77 @@ export default function ModalLogin({
     try {
       e.preventDefault();
 
-      dispatch({
-        type: "LOGIN",
-      });
-      setFormData({
-        ...formData,
-        email: "",
-        password: "",
-      });
-      setLoginShow(false);
-
       const requestBody = {
         email: formData.email,
         password: formData.password,
       };
 
-      // const body = JSON.stringify({ ...requestBody });
+      const body = JSON.stringify({ ...requestBody });
 
-      // const config = {
-      //   headers: {
-      //     "Content-type": "application/json",
-      //   },
-      // };
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
 
-      // const response = await API.post("/loginauth", body, config);
+      const response = await API.post("/login", body, config);
 
       // console.log("DataResponse: ", response);
 
-      // // CheckValidationInput
-      // if (response.data.status === "Validate Failed") {
-      //   setFormData({
-      //     ...formData,
-      //     errorMessage: response.data.message,
-      //     variantAlert: "danger",
-      //   });
-      //   // console.log("ResponseData: ", response.data);
-      //   // console.log("DataStateUpdate: ", state);
-      // }
-      // // EndCheckValidationInput=======
+      // CheckValidationInput
+      if (response.data.status === "Validate Failed") {
+        setFormData({
+          ...formData,
+          alertMessage: response.data.message,
+          alertVariant: "danger",
+        });
+        // console.log("ResponseData: ", response.data);
+        // console.log("DataStateUpdate: ", state);
+      }
+      // EndCheckValidationInput=======
 
-      // // CheckEmailOrPasswordNotMatch
-      // else if (response.data.status === "Failed") {
-      //   setFormData({
-      //     ...formData,
-      //     errorMessage: response.data.message,
-      //     variantAlert: "danger",
-      //   });
-      //   // console.log("ResponseData: ", response.data);
-      //   // console.log("DataStateUpdate: ", state);
-      // }
-      // // EndCheckEmailOrPasswordNotMatch======
+      // CheckEmailOrPasswordNotMatch
+      else if (response.data.status === "Failed") {
+        setFormData({
+          ...formData,
+          alertMessage: response.data.message,
+          alertVariant: "danger",
+        });
+        // console.log("ResponseData: ", response.data);
+        // console.log("DataStateUpdate: ", state);
+      }
+      // EndCheckEmailOrPasswordNotMatch======
 
-      // //CheckConnection
-      // else if (response.data.status === "Response failed") {
-      //   setFormData({
-      //     ...formData,
-      //     errorMessage: response.data.message,
-      //     variantAlert: "danger",
-      //   });
-      //   // console.log("ResponseData: ", response.data);
-      //   // console.log("DataStateUpdate: ", state);
-      // }
-      // //EndCheckConnection===========
+      //CheckConnection
+      else if (response.data.status === "Response failed") {
+        setFormData({
+          ...formData,
+          alertMessage: response.data.message,
+          alertVariant: "danger",
+        });
+        // console.log("ResponseData: ", response.data);
+        // console.log("DataStateUpdate: ", state);
+      }
+      //EndCheckConnection===========
 
-      // // IfLoginSuccess
-      // else {
-      //   dispatch({
-      //     type: "LOGIN",
-      //     payload: response.data,
-      //   });
-      //   setFormData({
-      //     ...formData,
-      //     email: "",
-      //     password: "",
-      //     errorMessage: "Login Success!",
-      //     variantAlert: "success",
-      //   });
-      //   setAuthToken(response.data.token);
-      // }
-      // // EndIfLoginSuccess==============
+      // IfLoginSuccess
+      else {
+        dispatch({
+          type: "LOGIN",
+          payload: response.data,
+        });
+        setFormData({
+          ...formData,
+          email: "",
+          password: "",
+          alertMessage: "Login Success!",
+          alertVariant: "success",
+        });
+        console.log("ResponseData: ", response.data);
+        setAuthToken(response.data.token);
+        setLoginShow(false);
+      }
+      // EndIfLoginSuccess==============
     } catch (error) {
       console.log("ErrorTryCath", error);
     }
@@ -127,10 +122,10 @@ export default function ModalLogin({
           setLoginShow(false);
           setFormData({
             ...formData,
-            errorMessage: "",
             email: "",
             password: "",
-            variantAlert: "",
+            alertMessage: "",
+            alertVariant: "",
           });
         }}
         aria-labelledby="example-modal-sizes-title-sm"
@@ -143,9 +138,9 @@ export default function ModalLogin({
           <Modal.Title id="example-modal-sizes-title-sm">Login</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ background: "#1F1F1F" }}>
-          {formData.errorMessage && (
-            <Alert variant={formData.variantAlert}>
-              {formData.errorMessage}
+          {formData.alertMessage && (
+            <Alert variant={formData.alertVariant}>
+              {formData.alertMessage}
             </Alert>
           )}
           <Form onSubmit={handleFormSubmit}>

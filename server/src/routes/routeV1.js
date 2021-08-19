@@ -108,10 +108,15 @@ router.get("/book-author", getBooksBelongsToManyAuthor);
 // EndAuthorRoute
 
 // AuthRoute
-const { registerAuth, loginAuth } = require("../controllers/versi1/Auth");
+const {
+  registerAuth,
+  loginAuth,
+  checkAuth,
+} = require("../controllers/versi1/Auth");
 
 router.post("/register", registerAuth);
 router.post("/login", loginAuth);
+router.get("/check-auth", AuthMiddleware, checkAuth);
 // EndAuthRoute
 
 module.exports = router;
