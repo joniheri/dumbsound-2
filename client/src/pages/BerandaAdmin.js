@@ -12,7 +12,7 @@ import "../css/BerandaPublic.css";
 import "../css/LoadingAnimation.css";
 
 // import components
-import NavbarPublic from "../components/NavbarPublic";
+import NavbarAdmin from "../components/NavbarAdmin";
 import ModalLogin from "../components/modal/ModalLogin";
 import ModalRegister from "../components/modal/ModalRegister";
 
@@ -22,7 +22,7 @@ import { API } from "../config/Api";
 // import img
 // import Rectangle1 from "../img/Rectangle1.png";
 
-export default function BerandaPublic({ stateLogin, setStateLogin }) {
+export default function BerandaAdmin({ stateLogin, setStateLogin }) {
   const [state, dispatch] = useContext(AppContext);
 
   const [loginShow, setLoginShow] = useState(false);
@@ -58,7 +58,7 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
 
   return (
     <>
-      <NavbarPublic />
+      <NavbarAdmin />
       <Container fluid>
         {/* Content */}
         <Row

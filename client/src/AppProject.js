@@ -15,6 +15,8 @@ import { AppContext } from "./contexts/GlobalContext";
 
 // import pages
 import BerandaPublic from "./pages/BerandaPublic";
+import BerandaAdmin from "./pages/BerandaAdmin";
+import BerandaUser from "./pages/BerandaUser";
 import AddArtist from "./pages/AddArtist";
 import AddMusic from "./pages/AddMusic";
 import Transaction from "./pages/Transaction";
@@ -24,35 +26,45 @@ import DetailProduct from "./pages/DetailProduct";
 import NotFound from "./pages/NotFound";
 import LoadingTest1 from "./pages/LoadingTest1";
 
-// CheckTokenInLocalStorageIsExist
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
-// EndCheckTokenInLocalStorageIsExist
+// // CheckTokenInLocalStorageIsExist
+// if (localStorage.token) {
+//   setAuthToken(localStorage.token);
+// }
+// // EndCheckTokenInLocalStorageIsExist
 
 export default function AppProject() {
-  const [state, dispatch] = useContext(AppContext);
+  // const [state, dispatch] = useContext(AppContext);
 
-  const loadUser = async () => {
-    try {
-      const response = await API.get("/check-auth");
+  // const loadUser = async () => {
+  //   try {
+  //     const response = await API.get("/check-auth");
 
-      dispatch({
-        type: "LOGIN",
-        payload: response.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     console.log("ResponLoadUser", response);
 
-  useEffect(() => {
-    loadUser();
-  }, []);
+  //     if (response.status === 401) {
+  //       return dispatch({
+  //         type: "AUTH_ERROR",
+  //       });
+  //     }
+
+  //     dispatch({
+  //       type: "USER_LOADED",
+  //       payload: response.data,
+  //     });
+  //   } catch (error) {
+  //     dispatch({
+  //       type: "AUTH_ERROR",
+  //     });
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   loadUser();
+  // }, []);
 
   return (
     <Router>
-      <NavbarPublic />
       {/* <BerandaPublic /> */}
       <Switch>
         <Route exact path="/" component={BerandaPublic} />
@@ -64,6 +76,8 @@ export default function AppProject() {
           component={DetailProduct}
         />
         <Route exact path="/cart" component={Cart} />
+        {/* <PrivateRoute exact path="/beranda-user" component={BerandaUser} /> */}
+        <PrivateRoute exact path="/beranda-admin" component={BerandaAdmin} />
         <PrivateRoute exact path="/add-artist" component={AddArtist} />
         <PrivateRoute exact path="/add-music" component={AddMusic} />
         <PrivateRoute exact path="/transaction" component={Transaction} />

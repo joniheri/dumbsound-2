@@ -22,7 +22,7 @@ import Vector2 from "../img/Vector2.png";
 import Vector3 from "../img/Vector3.png";
 import Vector4 from "../img/Vector4.png";
 
-export default function NavbarPublic({ stateLogin, setStateLogin }) {
+export default function NavbarUser({ stateLogin, setStateLogin }) {
   const router = useHistory();
 
   const [state, dispatch] = useContext(AppContext);
@@ -99,54 +99,71 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
           >
             Cart: {state.carts.length}
           </Nav.Link> */}
-          <Nav.Link
-            style={{
-              padding: "0",
-              marginLeft: "15px",
-            }}
-          >
-            <Button
-              onClick={onSwitchLogin}
-              variant=""
-              size="sm"
-              block
-              style={{
-                background: "",
-                textAlign: "center",
-                color: "#fff",
-                paddingLeft: "37px",
-                paddingRight: "37px",
-                border: "1px solid #FFFFFF",
-                borderRadius: "5px",
-              }}
-            >
-              Login
-            </Button>
-          </Nav.Link>
-          <Nav.Link
-            style={{
-              padding: "0",
-              marginLeft: "15px",
-            }}
-          >
-            <Button
+
+          <div className="dropdown" style={{ float: "right" }}>
+            <Image
+              src={Ellipse2}
               onClick={onSwitchRegister}
-              variant=""
-              size="sm"
-              block
               style={{
-                background: "#EE4622",
-                textAlign: "center",
-                color: "#fff",
-                paddingLeft: "25px",
-                paddingRight: "25px",
-                border: "1px solid #EE4622",
-                borderRadius: "5px",
+                width: "40PX",
+                height: "auto",
+                cursor: "pointer",
+                marginTop: "5px",
+                marginLeft: "10px",
               }}
-            >
-              Register
-            </Button>
-          </Nav.Link>
+            />
+            <div className="dropdown-content">
+              <Link
+                to="/pay"
+                style={{
+                  textDecoration: "none",
+                  padding: "0",
+                  margin: "0",
+                }}
+              >
+                <a
+                  href="#"
+                  style={{
+                    borderTopLeftRadius: "3px",
+                    borderTopRightRadius: "3px",
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  <Image
+                    src={Vector1}
+                    style={{
+                      marginRight: "20px",
+                      height: "20px",
+                      width: "auto",
+                    }}
+                  />
+                  Pay
+                </a>
+              </Link>
+              <div className="borderBottom"></div>
+              <a
+                href="#"
+                style={{
+                  borderBottomLeftRadius: "3px",
+                  borderBottomRightRadius: "3px",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+                onClick={handleLogout}
+              >
+                <Image
+                  src={Vector3}
+                  style={{
+                    marginRight: "27px",
+                    height: "20px",
+                    width: "auto",
+                  }}
+                />
+                Logout
+              </a>
+            </div>
+          </div>
 
           {/* ModalLogin */}
           <ModalLogin
