@@ -13,6 +13,11 @@ export default function PrivateRoute({ component: Component, ...rest }) {
 
   return (
     <Route
+      // {...rest}
+      // render={(props) =>
+      //   isLogin ? <Component {...props} /> : <Redirect to="/" />
+      // }
+
       {...rest}
       render={(props) =>
         isLoading ? (

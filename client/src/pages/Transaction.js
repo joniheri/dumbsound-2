@@ -1,12 +1,16 @@
 import React from "react";
 import { Container, Table, Dropdown, Image } from "react-bootstrap";
 
+// import components
+import NavbarAdmin from "../components/NavbarAdmin";
+
 // import img
 import Polygon2 from "../img/Polygon2.png";
 
 export default function Transaction() {
   return (
     <div>
+      <NavbarAdmin />
       <Container style={{ marginTop: "100px" }}>
         <h3 style={{ color: "#b8b8b8", marginBottom: "30px" }}>
           Incoming Transaction

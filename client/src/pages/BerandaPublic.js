@@ -61,27 +61,23 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
       <NavbarPublic />
       <Container fluid>
         {/* Content */}
-        <Row
-          style={{
-            marginBottom: "20px",
-          }}
-        >
-          <Col lg={12} className="landingPage">
-            <p
-              style={{
-                color: "#fff",
-                fontSize: "40px",
-                textAlign: "center",
-                marginTop: "130px",
-              }}
-            >
-              Connect on DumbSound
-            </p>
-            <center>
+        <center>
+          <Row>
+            <Col lg={12} className="landingPage">
               <p
                 style={{
                   color: "#fff",
-                  fontSize: "18px",
+                  fontSize: "40px",
+                  textAlign: "center",
+                  marginTop: "190px",
+                }}
+              >
+                Connect on DumbSound
+              </p>
+              <p
+                style={{
+                  color: "#fff",
+                  fontSize: "20px",
                   textAlign: "center",
                   width: "680px",
                 }}
@@ -89,14 +85,15 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
                 Discovery, Stream, and share a constantly expanding mix of music
                 from emerging and major artists around the world
               </p>
-            </center>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </center>
         <div>
           <Row
             style={{
               marginLeft: "60px",
               marginRight: "60px",
+              paddingTop: "30px",
               marginBottom: "30px",
             }}
           >
@@ -106,8 +103,7 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
                   textAlign: "center",
                   color: "#EE4622",
                   fontSize: "24px",
-                  paddingTop: "30px",
-                  marginBottom: "40px",
+                  marginBottom: "50px",
                 }}
               >
                 Dengarkan Dan Rasakan
@@ -146,8 +142,7 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
                             <Card.Body style={{ padding: "0" }}>
                               <Card.Title
                                 style={{
-                                  fontSize: "17px",
-                                  fontWeight: "bold",
+                                  fontSize: "16px",
                                 }}
                               >
                                 <Row style={{ margin: "0" }}>
@@ -176,7 +171,7 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
                               </Card.Title>
                               <Card.Title
                                 style={{
-                                  fontSize: "13px",
+                                  fontSize: "12px",
                                   paddingLeft: "6px",
                                   paddingRight: "6px",
                                 }}

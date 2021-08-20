@@ -3,6 +3,7 @@ import { Container, Alert, Form, Row, Col, Button } from "react-bootstrap";
 
 // imporrt components
 import { AppContext } from "../contexts/GlobalContext";
+import NavbarAdmin from "../components/NavbarAdmin";
 
 export default function AddArtist() {
   const [messageShowFailed, setMessageShowFailed] = useState("");
@@ -63,6 +64,7 @@ export default function AddArtist() {
 
   return (
     <div>
+      <NavbarAdmin />
       <Container style={{ marginTop: "100px" }}>
         <h3 style={{ color: "#b8b8b8", marginBottom: "30px" }}>Add Artis</h3>
         {messageShowFailed && (

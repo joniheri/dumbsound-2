@@ -17,18 +17,11 @@ const reducer = (state, action) => {
         isLogin: true,
         isLoading: false,
       };
-    case "AUTH_ERROR":
     case "LOGOUT":
       localStorage.removeItem("token");
       return {
         ...state,
         isLogin: false,
-        isLoading: false,
-      };
-    case "USER_LOADED":
-      return {
-        ...state,
-        isLogin: true,
         isLoading: false,
       };
     case "ADD_CART":

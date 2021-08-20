@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Container, Alert, Form, Row, Col, Button } from "react-bootstrap";
 
+// import components
+import NavbarAdmin from "../components/NavbarAdmin";
+
 export default function AddMusic() {
   const [artis, setArtis] = useState([]);
   const [messageShowFailed, setMessageShowFailed] = useState("");
@@ -93,6 +96,7 @@ export default function AddMusic() {
 
   return (
     <div>
+      <NavbarAdmin />
       <Container style={{ marginTop: "100px" }}>
         <h3 style={{ color: "#b8b8b8", marginBottom: "30px" }}>Add Music</h3>
         {messageShowFailed && (

@@ -3,6 +3,9 @@ import React, { useState, useContext } from "react";
 // import components bootstrap
 import { Button, Modal, Form, Alert } from "react-bootstrap";
 
+// import react-router-dom
+import { useHistory } from "react-router-dom";
+
 // impost css
 import "../../css/ModalLogin.css";
 
@@ -17,6 +20,8 @@ export default function ModalLogin({
   setLoginShow,
   setRegisterShow,
 }) {
+  const router = useHistory();
+
   const [state, dispatch] = useContext(AppContext);
 
   const [formData, setFormData] = useState({
@@ -105,6 +110,7 @@ export default function ModalLogin({
         });
         console.log("ResponseData: ", response.data);
         setAuthToken(response.data.token);
+        router.push("/beranda-admin");
         setLoginShow(false);
       }
       // EndIfLoginSuccess==============
