@@ -16,7 +16,7 @@ import { AppContext } from "./contexts/GlobalContext";
 // import pages
 import BerandaPublic from "./pages/BerandaPublic";
 import BerandaAdmin from "./pages/BerandaAdmin";
-import BerandaUser from "./pages/BerandaUser";
+// import BerandaUser from "./pages/BerandaUser";
 import AddArtist from "./pages/AddArtist";
 import AddMusic from "./pages/AddMusic";
 import Transaction from "./pages/Transaction";
@@ -26,15 +26,16 @@ import DetailProduct from "./pages/DetailProduct";
 import NotFound from "./pages/NotFound";
 import LoadingTest1 from "./pages/LoadingTest1";
 
-// // CheckTokenInLocalStorageIsExist
-// if (localStorage.token) {
-//   setAuthToken(localStorage.token);
-// }
-// // EndCheckTokenInLocalStorageIsExist
+// CheckTokenInLocalStorageIsExist
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+// EndCheckTokenInLocalStorageIsExist
 
 export default function AppProject() {
-  // const [state, dispatch] = useContext(AppContext);
+  const [state, dispatch] = useContext(AppContext);
 
+  console.log("DatStateAppProject: ", state);
   // const loadUser = async () => {
   //   try {
   //     const response = await API.get("/check-auth");
@@ -65,7 +66,6 @@ export default function AppProject() {
 
   return (
     <Router>
-      {/* <BerandaPublic /> */}
       <Switch>
         <Route exact path="/" component={BerandaPublic} />
         <Route exact path="/product" component={Product} />
@@ -76,7 +76,6 @@ export default function AppProject() {
           component={DetailProduct}
         />
         <Route exact path="/cart" component={Cart} />
-        {/* <PrivateRoute exact path="/beranda-user" component={BerandaUser} /> */}
         <PrivateRoute exact path="/beranda-admin" component={BerandaAdmin} />
         <PrivateRoute exact path="/add-artist" component={AddArtist} />
         <PrivateRoute exact path="/add-music" component={AddMusic} />

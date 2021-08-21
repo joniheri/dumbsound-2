@@ -4,8 +4,9 @@ export const AppContext = createContext();
 
 const initialState = {
   isLogin: false,
+  isLoading: false,
   carts: [],
-  // isLoading: false,
+  user: null,
 };
 
 const reducer = (state, action) => {
@@ -16,6 +17,11 @@ const reducer = (state, action) => {
         ...state,
         isLogin: true,
         isLoading: false,
+        user: {
+          email: action.payload.email,
+          fullname: action.payload.fullname,
+          level: action.payload.level,
+        },
       };
     case "LOGOUT":
       localStorage.removeItem("token");

@@ -66,39 +66,7 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            {/* <Nav.Link
-              as={Link}
-              to="/product"
-              style={{
-                marginLeft: "10px",
-                textAlign: "center",
-              }}
-            >
-              Product
-            </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/loading1"
-              style={{
-                marginLeft: "10px",
-                textAlign: "center",
-              }}
-            >
-              Test Loding 1
-            </Nav.Link> */}
-          </Nav>
-          {/* <Nav.Link
-            as={Link}
-            to="/cart"
-            style={{
-              marginLeft: "10px",
-              textAlign: "center",
-              color: "#b8b8b8",
-            }}
-          >
-            Cart: {state.carts.length}
-          </Nav.Link> */}
+          <Nav className="mr-auto"></Nav>
 
           <div className="dropdown" style={{ float: "right" }}>
             <Image

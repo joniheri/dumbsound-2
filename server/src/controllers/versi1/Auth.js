@@ -154,7 +154,8 @@ exports.loginAuth = async (req, res) => {
       status: "Response Success",
       message: "Login Success",
       email: findEmail.email,
-      name: findEmail.fullname,
+      fullname: findEmail.fullname,
+      level: findEmail.level,
       token,
     });
   } catch (error) {

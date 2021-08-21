@@ -2,9 +2,13 @@ import React from "react";
 // import { useHistory } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
+// import components
+import NavbarPublic from "../components/NavbarPublic";
+
 export default function NotFound() {
   return (
     <div>
+      <NavbarPublic />
       <Container style={{ marginTop: "100px" }}>
         <h1
           style={{
