@@ -4,7 +4,7 @@ export const AppContext = createContext();
 
 const initialState = {
   isLogin: false,
-  isLoading: false,
+  isLoading: true,
   carts: [],
   user: null,
 };
@@ -16,19 +16,32 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLogin: true,
-        isLoading: false,
         user: {
           email: action.payload.email,
           fullname: action.payload.fullname,
           level: action.payload.level,
         },
+        isLoading: false,
       };
+    case "USER_LOADED":
+      return {
+        ...state,
+        isLogin: true,
+        user: {
+          email: action.payload.email,
+          fullname: action.payload.fullname,
+          level: action.payload.level,
+        },
+        isLoading: false,
+      };
+    case "AUTH_ERROR":
     case "LOGOUT":
       localStorage.removeItem("token");
       return {
         ...state,
         isLogin: false,
         isLoading: false,
+        user: null,
       };
     case "ADD_CART":
       const checkExistProduct = state.carts.filter(

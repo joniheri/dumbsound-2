@@ -24,7 +24,7 @@ exports.AuthMiddleware = (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    res.send({
+    return res.send({
       status: "Response Failed",
       message: "Login Failed!" + error,
     });

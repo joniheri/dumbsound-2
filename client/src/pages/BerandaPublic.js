@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // impost object bootstrap
 import { Row, Col, Container, Card } from "react-bootstrap";
@@ -24,13 +24,19 @@ import { API } from "../config/Api";
 
 export default function BerandaPublic({ stateLogin, setStateLogin }) {
   const [state, dispatch] = useContext(AppContext);
-
   const [loginShow, setLoginShow] = useState(false);
   const [registerShow, setRegisterShow] = useState(false);
   const [music, setMusic] = useState([]);
   const [loading, setLoading] = useState(true);
+  const history = useHistory();
 
-  // console.log("DataState", state);
+  // CheckUserIsLogin
+  useEffect(() => {
+    if (state.isLogin) {
+      history.push("/beranda-admin");
+    }
+  }, []);
+  // EndCheckUserIsLogin
 
   // loadDatasMusic
   const loadMusic = async () => {

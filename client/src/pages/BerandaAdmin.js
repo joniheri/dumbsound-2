@@ -30,7 +30,7 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
   const [music, setMusic] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log("DataState", state);
+  // console.log("DataState", state);
 
   // loadDatasMusic
   const loadMusic = async () => {

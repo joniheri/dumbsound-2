@@ -4,7 +4,6 @@ import React, { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // import components
-import NavbarPublic from "./components/NavbarPublic";
 import PrivateRoute from "./components/PrivateRoute";
 
 // import config
@@ -35,34 +34,31 @@ if (localStorage.token) {
 export default function AppProject() {
   const [state, dispatch] = useContext(AppContext);
 
-  console.log("DatStateAppProject: ", state);
-  // const loadUser = async () => {
-  //   try {
-  //     const response = await API.get("/check-auth");
+  // console.log("DatStateAppProject: ", state);
+  const checkUser = async () => {
+    try {
+      const response = await API.get("/check-auth");
+      // console.log("ResponLoadUser", response.data.status);
+      if (response.data.status == "Response Failed") {
+        return dispatch({
+          type: "AUTH_ERROR",
+        });
+      }
+      dispatch({
+        type: "USER_LOADED",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+      return dispatch({
+        type: "AUTH_ERROR",
+      });
+    }
+  };
 
-  //     console.log("ResponLoadUser", response);
-
-  //     if (response.status === 401) {
-  //       return dispatch({
-  //         type: "AUTH_ERROR",
-  //       });
-  //     }
-
-  //     dispatch({
-  //       type: "USER_LOADED",
-  //       payload: response.data,
-  //     });
-  //   } catch (error) {
-  //     dispatch({
-  //       type: "AUTH_ERROR",
-  //     });
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   loadUser();
-  // }, []);
+  useEffect(() => {
+    checkUser();
+  }, []);
 
   return (
     <Router>

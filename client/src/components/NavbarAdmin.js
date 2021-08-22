@@ -56,7 +56,7 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
       style={{ paddingTop: "20px", paddingBottom: "10px" }}
     >
       <Container fluid>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/beranda-admin">
           <Image
             src={LogoShapes}
             style={{ marginRight: "10px", height: "25px", width: "auto" }}
