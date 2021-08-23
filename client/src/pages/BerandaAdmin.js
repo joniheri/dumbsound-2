@@ -10,10 +10,7 @@ import "../css/LoadingAnimation.css";
 
 // import components
 import NavbarAdmin from "../components/NavbarAdmin";
-import ModalLogin from "../components/modal/ModalLogin";
-import ModalRegister from "../components/modal/ModalRegister";
 import AudioPlayer from "../components/AudioPlayer";
-import NavbarBottom from "../components/NavbarBottom";
 
 // import config
 import { API } from "../config/Api";
@@ -29,6 +26,7 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
   const [musicThumbnail, setMusicThumbnail] = useState(null);
   const [artistName, setArtistName] = useState(null);
   const [titleMusic, setTitleMusic] = useState(null);
+  const [playMusic, setPlayMusic] = useState(true);
 
   // console.log("Thumnail", musicThumbnail);
 
@@ -125,6 +123,7 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
                             setMusicThumbnail(dataMusic.thumbnail);
                             setTitleMusic(dataMusic.title);
                             setArtistName(dataMusic.artist.name);
+                            setPlayMusic(true);
                           }}
                           style={{
                             cursor: "pointer",
@@ -205,6 +204,8 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
             musicThumbnail={musicThumbnail}
             artistName={artistName}
             titleMusic={titleMusic}
+            playMusic={playMusic}
+            setPlayMusic={setPlayMusic}
           />
         </>
       )}

@@ -1,10 +1,12 @@
-import React from "react";
-import { Col, Image, Nav, Navbar, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Col, Image, Row } from "react-bootstrap";
 
 // import img
 import PlayBack from "../img/video-player 2.png";
 import PlayNext from "../img/video-player 1.png";
 import PlayButton from "../img/play-button 1.png";
+import PauseButton from "../img/pause-button 1.png";
+import StopButton from "../img/stop-button 1.png";
 
 export default function AudioPlayer({
   setShowAudio,
@@ -12,9 +14,9 @@ export default function AudioPlayer({
   musicThumbnail,
   artistName,
   titleMusic,
+  playMusic,
+  setPlayMusic,
 }) {
-  console.log("Thumbnail: ", musicThumbnail);
-
   return (
     <div
       style={{
@@ -107,18 +109,43 @@ export default function AudioPlayer({
                 }}
               />
             </span>
-            <span>
-              <Image
-                src={PlayButton}
-                style={{
-                  cursor: "pointer",
-                  width: "auto",
-                  height: "18px",
-                  marginLeft: "14px",
-                  marginRight: "13px",
-                }}
-              />
-            </span>
+            {playMusic === true ? (
+              <>
+                <span>
+                  <Image
+                    src={PauseButton}
+                    style={{
+                      cursor: "pointer",
+                      width: "auto",
+                      height: "18px",
+                      marginLeft: "14px",
+                      marginRight: "13px",
+                    }}
+                    onClick={() => {
+                      setPlayMusic(false);
+                    }}
+                  />
+                </span>
+              </>
+            ) : (
+              <>
+                <span>
+                  <Image
+                    src={PlayButton}
+                    style={{
+                      cursor: "pointer",
+                      width: "auto",
+                      height: "18px",
+                      marginLeft: "14px",
+                      marginRight: "13px",
+                    }}
+                    onClick={() => {
+                      setPlayMusic(true);
+                    }}
+                  />
+                </span>
+              </>
+            )}
             <span>
               <Image
                 src={PlayNext}
@@ -136,7 +163,14 @@ export default function AudioPlayer({
               setShowAudio(false);
             }}
           >
-            X
+            <Image
+              src={StopButton}
+              style={{
+                cursor: "pointer",
+                width: "auto",
+                height: "18px",
+              }}
+            />
           </span>
         </Col>
       </Row>
