@@ -23,7 +23,7 @@ import Vector3 from "../img/Vector3.png";
 import Vector4 from "../img/Vector4.png";
 
 export default function NavbarPublic({ stateLogin, setStateLogin }) {
-  const router = useHistory();
+  const history = useHistory();
 
   const [state, dispatch] = useContext(AppContext);
   const [loginShow, setLoginShow] = useState(false);
@@ -43,7 +43,7 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
     dispatch({
       type: "LOGOUT",
     });
-    router.push("/");
+    history.push("/");
   };
 
   return (

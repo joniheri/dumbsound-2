@@ -23,7 +23,7 @@ import { API } from "../config/Api";
 // import Rectangle1 from "../img/Rectangle1.png";
 
 export default function BerandaAdmin({ stateLogin, setStateLogin }) {
-  const [state, dispatch] = useContext(AppContext);
+  // const [state, dispatch] = useContext(AppContext);
 
   const [loginShow, setLoginShow] = useState(false);
   const [registerShow, setRegisterShow] = useState(false);

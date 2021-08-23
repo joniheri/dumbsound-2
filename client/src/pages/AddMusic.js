@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Alert, Form, Row, Col, Button } from "react-bootstrap";
+
+// import config
+import { API } from "../config/Api";
 
 // import components
 import NavbarAdmin from "../components/NavbarAdmin";
 
 export default function AddMusic() {
-  const [artis, setArtis] = useState([]);
+  const [artist, setArtis] = useState([]);
   const [messageShowFailed, setMessageShowFailed] = useState("");
   const [messageNotif, setMessageNotif] = useState("");
   const [preview, setPreview] = useState("");
@@ -18,7 +21,7 @@ export default function AddMusic() {
     artistId: "",
   });
 
-  const { title, year, thumbnail, attache, artistId } = formData;
+  // const { title, year, thumbnail, attache, artistId } = formData;
 
   const handleInputChange = (e) => {
     setFormData({
@@ -33,61 +36,68 @@ export default function AddMusic() {
     }
   };
 
-  // loadDatasArtis
-  // const loadArtis = async () => {
-  //   try {
-  //     const respons = await API.get("/artists");
-  //     setArtis(respons.data.viewDatas);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   loadArtis();
-  // }, []);
-  // EndLoadDatasArtis
+  // loadDatasArtis;
+  const loadArtis = async () => {
+    try {
+      const response = await API.get("/artists");
+      // console.log("DataResponseArtist: ", response.data.data);
+      setArtis(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    loadArtis();
+  }, []);
+  // console.log("DataArtis: ", artist);
+  // EndLoadDatasArtis;
 
   // SaveDataToDatabase
   const handleOnSubmit = async (e) => {
     try {
       e.preventDefault();
 
-      // const config = {
-      //   headers: {
-      //     "Content-type": "multipart/form-data",
-      //   },
-      // };
+      const config = {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      };
 
-      // const formData = new FormData();
-      // formData.set("title", data.title);
-      // formData.set("year", data.year);
-      // formData.set("attache", data.attache);
-      // formData.set("artistId", data.artistId);
-      // formData.set("imageFile", data.thumbnail[0], data.thumbnail[0].name);
+      const formData = new FormData();
+      formData.set("title", formData.title);
+      formData.set("year", formData.year);
+      formData.set("attache", formData.attache);
+      formData.set("artistId", formData.artistId);
+      formData.set(
+        "imageFile",
+        formData.thumbnail[0],
+        formData.thumbnail[0].name
+      );
 
-      // // console.log("setNewData", formData);
+      const body = JSON.stringify({ ...formData });
+      console.log("setNewData", formData);
 
-      // const response = await API.post("/addmusicwithfile", formData, config); //-->this is sintact to inset to database
+      const response = await API.post("/add-music-file", formData, config); //-->this is sintact to inset to database
 
-      // console.log("DataSaved: ", response);
+      console.log("DataSaved: ", response);
 
-      // if (response.data.status === "Validate Failed") {
-      //   setMessageShowFailed(response.data.message);
-      //   setMessageNotif("");
-      // } else if (response.data.status === "Response Failed") {
-      //   setMessageShowFailed(response.data.message);
-      //   setMessageNotif("");
-      // } else {
-      //   setData({
-      //     title: "",
-      //     year: "",
-      //     thumbnail: "",
-      //     attache: "",
-      //     artistId: "",
-      //   });
-      //   setMessageShowFailed("");
-      //   setMessageNotif("Add Data Success!");
-      // }
+      if (response.data.status === "Validate Failed") {
+        setMessageShowFailed(response.data.message);
+        setMessageNotif("");
+      } else if (response.data.status === "Response Failed") {
+        setMessageShowFailed(response.data.message);
+        setMessageNotif("");
+      } else {
+        setFormData({
+          title: "",
+          year: "",
+          thumbnail: "",
+          attache: "",
+          artistId: "",
+        });
+        setMessageShowFailed("");
+        setMessageNotif("Add Data Success!");
+      }
     } catch (error) {
       console.log("ErrorTryCath", error);
     }
@@ -156,7 +166,7 @@ export default function AddMusic() {
             }}
           >
             <option>--Select Singer--</option>
-            {artis?.map((dataArtis, index) => (
+            {artist?.map((dataArtis) => (
               <option value={dataArtis.id}>
                 {dataArtis.id} - {dataArtis.name}
               </option>

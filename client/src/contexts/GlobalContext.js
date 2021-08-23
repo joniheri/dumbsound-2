@@ -4,9 +4,9 @@ export const AppContext = createContext();
 
 const initialState = {
   isLogin: false,
-  isLoading: true,
   carts: [],
   user: null,
+  isLoading: true,
 };
 
 const reducer = (state, action) => {
@@ -40,8 +40,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLogin: false,
-        isLoading: false,
         user: null,
+        isLoading: false,
       };
     case "ADD_CART":
       const checkExistProduct = state.carts.filter(

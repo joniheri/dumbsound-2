@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Container, Alert, Form, Row, Col, Button } from "react-bootstrap";
 
+// import config
+import { API } from "../config/Api";
+
 // imporrt components
 import { AppContext } from "../contexts/GlobalContext";
 import NavbarAdmin from "../components/NavbarAdmin";
@@ -16,7 +19,7 @@ export default function AddArtist() {
     startCareer: "",
   });
 
-  const { name, old, type, startCareer } = formData;
+  // const { name, old, type, startCareer } = formData;
 
   const handleInputChange = (event) => {
     setFormData({
@@ -29,34 +32,34 @@ export default function AddArtist() {
     try {
       e.preventDefault();
 
-      // const config = {
-      //   headers: {
-      //     "Content-type": "application/json",
-      //   },
-      // };
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
 
-      // const body = JSON.stringify({ ...data });
+      const body = JSON.stringify({ ...formData });
 
-      // console.log("formDataBody: ", body);
+      console.log("formDataBody: ", body);
 
-      // const response = await API.post("/addartis", body, config); //-->this is sintact to inset to database
+      const response = await API.post("/add-artist", body, config); //-->this is sintact to inset to database
 
-      // console.log("DataSaved: ", response);
+      console.log("DataSaved: ", response);
 
-      // if (response.data.status === "Response failed") {
-      //   setMessageShowFailed(response.data.message);
-      // } else if (response.data.status === "Validate Failed") {
-      //   setMessageShowFailed(response.data.message);
-      // } else {
-      //   setData({
-      //     name: "",
-      //     old: "",
-      //     type: "",
-      //     startCareer: "",
-      //   });
-      //   setMessageShowFailed("");
-      //   setMessageNotif("Add Artis Success!");
-      // }
+      if (response.data.status === "Response failed") {
+        setMessageShowFailed(response.data.message);
+      } else if (response.data.status === "Validate Failed") {
+        setMessageShowFailed(response.data.message);
+      } else {
+        setFormData({
+          name: "",
+          old: "",
+          type: "",
+          startCareer: "",
+        });
+        setMessageShowFailed("");
+        setMessageNotif("Add Artis Success!");
+      }
     } catch (error) {
       console.log("ErrorTryCath", error);
     }

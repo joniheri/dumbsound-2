@@ -20,7 +20,7 @@ export default function ModalLogin({
   setLoginShow,
   setRegisterShow,
 }) {
-  const router = useHistory();
+  const history = useHistory();
 
   const [state, dispatch] = useContext(AppContext);
 
@@ -110,7 +110,7 @@ export default function ModalLogin({
         });
         // console.log("ResponseData: ", response.data);
         setAuthToken(response.data.token);
-        router.push("/beranda-admin");
+        history.push("/beranda-admin");
         setLoginShow(false);
       }
       // EndIfLoginSuccess==============
