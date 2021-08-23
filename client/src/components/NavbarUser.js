@@ -29,10 +29,10 @@ export default function NavbarUser({ stateLogin, setStateLogin }) {
   const [loginShow, setLoginShow] = useState(false);
   const [registerShow, setRegisterShow] = useState(false);
 
-  const onSwitchLogin = () => {
-    setRegisterShow(false);
-    setLoginShow(true);
-  };
+  // const onSwitchLogin = () => {
+  //   setRegisterShow(false);
+  //   setLoginShow(true);
+  // };
 
   const onSwitchRegister = () => {
     setRegisterShow(true);
@@ -103,7 +103,6 @@ export default function NavbarUser({ stateLogin, setStateLogin }) {
           <div className="dropdown" style={{ float: "right" }}>
             <Image
               src={Ellipse2}
-              onClick={onSwitchRegister}
               style={{
                 width: "40PX",
                 height: "auto",

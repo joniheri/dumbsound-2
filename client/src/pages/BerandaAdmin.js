@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 // impost object bootstrap
 import { Row, Col, Container, Card } from "react-bootstrap";
 
-// import context
-import { AppContext } from "../contexts/GlobalContext";
-
 // impost css
 import "../css/BerandaPublic.css";
 import "../css/LoadingAnimation.css";
@@ -15,6 +12,8 @@ import "../css/LoadingAnimation.css";
 import NavbarAdmin from "../components/NavbarAdmin";
 import ModalLogin from "../components/modal/ModalLogin";
 import ModalRegister from "../components/modal/ModalRegister";
+import AudioPlayer from "../components/AudioPlayer";
+import NavbarBottom from "../components/NavbarBottom";
 
 // import config
 import { API } from "../config/Api";
@@ -23,14 +22,15 @@ import { API } from "../config/Api";
 // import Rectangle1 from "../img/Rectangle1.png";
 
 export default function BerandaAdmin({ stateLogin, setStateLogin }) {
-  // const [state, dispatch] = useContext(AppContext);
-
-  const [loginShow, setLoginShow] = useState(false);
-  const [registerShow, setRegisterShow] = useState(false);
   const [music, setMusic] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAudio, setShowAudio] = useState(false);
+  const [musicFile, setMusicFile] = useState(null);
+  const [musicThumbnail, setMusicThumbnail] = useState(null);
+  const [artistName, setArtistName] = useState(null);
+  const [titleMusic, setTitleMusic] = useState(null);
 
-  // console.log("DataState", state);
+  // console.log("Thumnail", musicThumbnail);
 
   // loadDatasMusic
   const loadMusic = async () => {
@@ -50,11 +50,6 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
   // EndLoadDatasMusic
 
   // console.log("DataMusic:", music);
-
-  const onSwitchLogin = () => {
-    setRegisterShow(false);
-    setLoginShow(true);
-  };
 
   return (
     <>
@@ -113,7 +108,7 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
                 Dengarkan Dan Rasakan
               </p>
             </Col>
-            <Col sm={12}>
+            <Col md={12}>
               {loading ? (
                 <center>
                   <div className="lds-dual-ring"></div>
@@ -124,7 +119,13 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
                     {music?.map((dataMusic, index) => (
                       <Col md={2} style={{ marginBottom: "20px" }}>
                         <Link
-                          onClick={onSwitchLogin}
+                          onClick={() => {
+                            setShowAudio(true);
+                            setMusicFile(dataMusic.attache);
+                            setMusicThumbnail(dataMusic.thumbnail);
+                            setTitleMusic(dataMusic.title);
+                            setArtistName(dataMusic.artist.name);
+                          }}
                           style={{
                             cursor: "pointer",
                             textDecoration: "none",
@@ -193,21 +194,20 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
               )}
             </Col>
           </Row>
-          <ModalLogin
-            loginShow={loginShow}
-            setLoginShow={setLoginShow}
-            setRegisterShow={setRegisterShow}
-            stateLogin={stateLogin}
-            setStateLogin={setStateLogin}
-          />
-          <ModalRegister
-            registerShow={registerShow}
-            setRegisterShow={setRegisterShow}
-            setLoginShow={setLoginShow}
-          />
+          {/* End Content */}
         </div>
-        {/* End Content */}
       </Container>
+      {showAudio && (
+        <>
+          <AudioPlayer
+            setShowAudio={setShowAudio}
+            musicFile={musicFile}
+            musicThumbnail={musicThumbnail}
+            artistName={artistName}
+            titleMusic={titleMusic}
+          />
+        </>
+      )}
     </>
   );
 }

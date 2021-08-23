@@ -1,5 +1,12 @@
 import React from "react";
-import { Container, Table, Dropdown, Image } from "react-bootstrap";
+import {
+  Container,
+  Table,
+  Dropdown,
+  Image,
+  DropdownButton,
+  ButtonGroup,
+} from "react-bootstrap";
 
 // import components
 import NavbarAdmin from "../components/NavbarAdmin";
@@ -34,24 +41,19 @@ export default function Transaction() {
               <td style={{ verticalAlign: "middle" }}>bca.jpg</td>
               <td style={{ verticalAlign: "middle" }}>26/hari</td>
               <td style={{ verticalAlign: "middle" }}>Active</td>
-              <td style={{ verticalAlign: "middle" }}>Aprove</td>
+              <td style={{ verticalAlign: "middle" }}>Pending</td>
               <td style={{ textAlign: "center" }}>
-                <Dropdown
-                  align="end"
-                  title="Dropdown right"
+                <DropdownButton
+                  style={{ background: "#43494e", borderColor: "#43494e" }}
+                  variant="secondary"
+                  menuAlign="right"
+                  title=""
                   id="dropdown-menu-align-right"
                 >
-                  <Dropdown.Toggle
-                    style={{ background: "#43494e", borderColor: "#43494e" }}
-                  >
-                    <Image src={Polygon2} style={{ cursor: "pointer" }} />
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#">Approved</Dropdown.Item>
-                    <Dropdown.Item href="#">Cancel</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+                  <Dropdown.Item eventKey="1">Approved</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item eventKey="2">Cancel</Dropdown.Item>
+                </DropdownButton>
               </td>
             </tr>
           </tbody>

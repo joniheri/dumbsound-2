@@ -29,22 +29,13 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
   const [loginShow, setLoginShow] = useState(false);
   const [registerShow, setRegisterShow] = useState(false);
 
-  const onSwitchLogin = () => {
-    setRegisterShow(false);
-    setLoginShow(true);
-  };
-
-  const onSwitchRegister = () => {
-    setRegisterShow(true);
-    setLoginShow(false);
-  };
-
   const handleLogout = () => {
     dispatch({
       type: "LOGOUT",
     });
     history.push("/");
   };
+  // console.log("DataState: ", state);
 
   return (
     <Navbar
@@ -71,7 +62,6 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
           <div className="dropdown" style={{ float: "right" }}>
             <Image
               src={Ellipse2}
-              onClick={onSwitchRegister}
               style={{
                 width: "40PX",
                 height: "auto",
@@ -81,6 +71,31 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
               }}
             />
             <div className="dropdown-content">
+              <Nav.Link
+                style={{
+                  borderTopLeftRadius: "3px",
+                  borderTopRightRadius: "3px",
+                  paddingTop: "10px",
+                  paddingBottom: "18px",
+                }}
+              >
+                <center>
+                  <Image
+                    src={Ellipse2}
+                    style={{
+                      width: "60PX",
+                      height: "auto",
+                      cursor: "pointer",
+                      marginTop: "5px",
+                      marginBottom: "5px",
+                    }}
+                  />
+                  <div style={{ color: "#ffffff" }}>
+                    <span>{state.user.fullname}</span>
+                  </div>
+                </center>
+              </Nav.Link>
+              <div className="borderBottom"></div>
               <Link
                 to="/transaction"
                 style={{
@@ -92,8 +107,6 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
                 <a
                   href="#"
                   style={{
-                    borderTopLeftRadius: "3px",
-                    borderTopRightRadius: "3px",
                     fontSize: "15px",
                     fontWeight: "bold",
                   }}

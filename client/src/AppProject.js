@@ -28,6 +28,7 @@ import LoadingTest1 from "./pages/LoadingTest1";
 // CheckTokenInLocalStorageIsExist
 if (localStorage.token) {
   setAuthToken(localStorage.token);
+  // console.log("DataToken: ", localStorage.token);
 }
 // EndCheckTokenInLocalStorageIsExist
 
@@ -39,6 +40,7 @@ export default function AppProject() {
     try {
       const response = await API.get("/check-auth");
       // console.log("ResponLoadUser", response.data.status);
+      // console.log("DataResponseAppPjoject: ", response.data);
       if (response.data.status == "Response Failed") {
         return dispatch({
           type: "AUTH_ERROR",
@@ -46,7 +48,7 @@ export default function AppProject() {
       }
       dispatch({
         type: "USER_LOADED",
-        payload: response.data,
+        payload: response.data.dataUser,
       });
     } catch (error) {
       console.log(error);

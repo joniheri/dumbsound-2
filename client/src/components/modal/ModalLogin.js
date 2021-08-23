@@ -108,7 +108,7 @@ export default function ModalLogin({
           alertMessage: "Login Success!",
           alertVariant: "success",
         });
-        // console.log("ResponseData: ", response.data);
+        console.log("ResponseData: ", response.data.token);
         setAuthToken(response.data.token);
         history.push("/beranda-admin");
         setLoginShow(false);
