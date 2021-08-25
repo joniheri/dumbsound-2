@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Container, Alert, Form, Row, Col, Button } from "react-bootstrap";
 
 // import config
 import { API } from "../config/Api";
 
+// import context
+import { AppContext } from "../contexts/GlobalContext";
+
 // import components
-import NavbarAdmin from "../components/NavbarAdmin";
+import NotFound from "./NotFound";
 
 export default function AddMusic() {
+  const [state] = useContext(AppContext);
   const [artist, setArtis] = useState([]);
   const [messageShowFailed, setMessageShowFailed] = useState("");
   const [messageNotif, setMessageNotif] = useState("");
@@ -56,13 +60,11 @@ export default function AddMusic() {
   const handleOnSubmit = async (e) => {
     try {
       e.preventDefault();
-
       const config = {
         headers: {
           "Content-type": "multipart/form-data",
         },
       };
-
       const formData = new FormData();
       formData.set("title", formData.title);
       formData.set("year", formData.year);
@@ -73,14 +75,10 @@ export default function AddMusic() {
         formData.thumbnail[0],
         formData.thumbnail[0].name
       );
-
       const body = JSON.stringify({ ...formData });
-      console.log("setNewData", formData);
-
+      // console.log("setNewData", formData);
       const response = await API.post("/add-music-file", formData, config); //-->this is sintact to inset to database
-
-      console.log("DataSaved: ", response);
-
+      // console.log("DataSaved: ", response);
       if (response.data.status === "Validate Failed") {
         setMessageShowFailed(response.data.message);
         setMessageNotif("");
@@ -106,145 +104,142 @@ export default function AddMusic() {
 
   return (
     <div>
-      <NavbarAdmin />
+      {/* <NavbarAdmin /> */}
       <Container style={{ marginTop: "100px" }}>
-        <h3 style={{ color: "#b8b8b8", marginBottom: "30px" }}>Add Music</h3>
-        {messageShowFailed && (
-          <Alert variant="danger">{messageShowFailed}</Alert>
-        )}
-        {messageNotif && <Alert variant="success">{messageNotif}</Alert>}
-        <Form onSubmit={handleOnSubmit}>
-          <Row>
-            <Col sm={9}>
+        {state.user.level != "Admin" ? (
+          <>
+            <NotFound />
+          </>
+        ) : (
+          <>
+            <h3 style={{ color: "#b8b8b8", marginBottom: "30px" }}>
+              Add Music
+            </h3>
+            {messageShowFailed && (
+              <Alert variant="danger">{messageShowFailed}</Alert>
+            )}
+            {messageNotif && <Alert variant="success">{messageNotif}</Alert>}
+            <Form onSubmit={handleOnSubmit}>
+              <Row>
+                <Col sm={9}>
+                  <Form.Control
+                    onChange={handleInputChange}
+                    name="title"
+                    type="text"
+                    placeholder="Title"
+                    required
+                    className="input1"
+                    style={{
+                      padding: "0 0 0 10px",
+                      margin: "0 0 15px 0",
+                    }}
+                  />
+                </Col>
+                <Col sm={3}>
+                  <Form.Control
+                    onChange={handleInputChange}
+                    name="thumbnail"
+                    type="file"
+                    title="Thumbnail"
+                    style={{
+                      border: "1px solid #fff",
+                      borderRadius: "3px",
+                      color: "#fff",
+                      paddingTop: "3px",
+                      paddingBottom: "3px",
+                      cursor: "pointer",
+                      width: "250px",
+                    }}
+                  />
+                </Col>
+              </Row>
               <Form.Control
                 onChange={handleInputChange}
-                name="title"
-                type="text"
-                placeholder="Title"
+                name="year"
+                type="number"
+                placeholder="Year"
                 required
+                style={{ margin: "0 0 15px 0" }}
                 className="input1"
-                style={{
-                  padding: "0 0 0 10px",
-                  margin: "0 0 15px 0",
-                }}
               />
-            </Col>
-            <Col sm={3}>
-              <Form.Control
+              <select
                 onChange={handleInputChange}
-                name="thumbnail"
-                type="file"
-                title="Thumbnail"
-                style={{
-                  border: "1px solid #fff",
-                  borderRadius: "3px",
-                  color: "#fff",
-                  paddingTop: "3px",
-                  paddingBottom: "3px",
-                  cursor: "pointer",
-                  width: "250px",
-                }}
-              />
-            </Col>
-          </Row>
-          <Form.Control
-            onChange={handleInputChange}
-            name="year"
-            type="number"
-            placeholder="Year"
-            required
-            style={{ margin: "0 0 15px 0" }}
-            className="input1"
-          />
-          <select
-            onChange={handleInputChange}
-            name="artistId"
-            style={{
-              width: "100%",
-              height: "38px",
-              borderRadius: "5px",
-            }}
-          >
-            <option>--Select Singer--</option>
-            {artist?.map((dataArtis) => (
-              <option value={dataArtis.id}>
-                {dataArtis.id} - {dataArtis.name}
-              </option>
-            ))}
-          </select>
-          <Row
-            style={{
-              marginTop: "20px",
-            }}
-          >
-            {/* <Col sm={3}>
-              <Button
-                type="file"
-                className="btn-register2"
+                name="artistId"
                 style={{
                   width: "100%",
-                  background: "#4b4b4b",
-                  borderColor: "#4b4b4b",
+                  height: "38px",
+                  borderRadius: "5px",
                 }}
               >
-                Attache
-              </Button>
-            </Col> */}
-            <Col sm={3}>
-              <Form.Control
-                onChange={handleInputChange}
-                name="attache"
-                type="file"
-                title="Attache"
+                <option>--Select Singer--</option>
+                {artist?.map((dataArtis) => (
+                  <option value={dataArtis.id}>
+                    {dataArtis.id} - {dataArtis.name}
+                  </option>
+                ))}
+              </select>
+              <Row
                 style={{
-                  border: "1px solid #fff",
-                  borderRadius: "3px",
-                  color: "#fff",
-                  cursor: "pointer",
-                  width: "100%",
+                  marginTop: "20px",
                 }}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <center>
-                <Button
-                  type="submit"
-                  className="btn-register2"
-                  style={{
-                    width: "300px",
-                    margin: "20px 0 0 0",
-                    background: "#F58033",
-                    borderColor: "#F58033",
-                  }}
-                >
-                  Add Song
-                </Button>
-              </center>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={9}></Col>
-            <Col sm={3}>
-              {preview !== "" && (
-                <img
-                  src={preview}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    objectFit: "cover",
-                    paddingLeft: "15px",
-                    paddingRight: "15px",
-                    marginBottom: "15px",
-                  }}
-                />
-              )}
-            </Col>
-          </Row>
-        </Form>
-        {/* <pre style={{ color: "#fff" }}>{JSON.stringify(formData, null, 3)}</pre>
-        <pre style={{ color: "#fff" }}>{JSON.stringify(artis, null, 3)}</pre> */}
+              >
+                <Col sm={3}>
+                  <Form.Control
+                    onChange={handleInputChange}
+                    name="attache"
+                    type="file"
+                    title="Attache"
+                    style={{
+                      border: "1px solid #fff",
+                      borderRadius: "3px",
+                      color: "#fff",
+                      cursor: "pointer",
+                      width: "100%",
+                    }}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <center>
+                    <Button
+                      type="submit"
+                      className="btn-register2"
+                      style={{
+                        width: "300px",
+                        margin: "20px 0 0 0",
+                        background: "#F58033",
+                        borderColor: "#F58033",
+                      }}
+                    >
+                      Add Song
+                    </Button>
+                  </center>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={9}></Col>
+                <Col sm={3}>
+                  {preview !== "" && (
+                    <img
+                      src={preview}
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        objectFit: "cover",
+                        paddingLeft: "15px",
+                        paddingRight: "15px",
+                        marginBottom: "15px",
+                      }}
+                    />
+                  )}
+                </Col>
+              </Row>
+            </Form>
+            {/* <pre style={{ color: "#fff" }}>{JSON.stringify(formData, null, 3)}</pre>
+          <pre style={{ color: "#fff" }}>{JSON.stringify(artis, null, 3)}</pre> */}
+          </>
+        )}
       </Container>
     </div>
   );

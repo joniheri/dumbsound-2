@@ -16,11 +16,9 @@ import { AppContext } from "../contexts/GlobalContext";
 
 // import img
 import LogoShapes from "../img/LogoShapes.png";
-import Ellipse2 from "../img/Ellipse2.png";
+import Ellipse1 from "../img/Ellipse1.png";
 import Vector1 from "../img/Vector1.png";
-import Vector2 from "../img/Vector2.png";
 import Vector3 from "../img/Vector3.png";
-import Vector4 from "../img/Vector4.png";
 
 export default function NavbarUser({ stateLogin, setStateLogin }) {
   const router = useHistory();
@@ -28,16 +26,6 @@ export default function NavbarUser({ stateLogin, setStateLogin }) {
   const [state, dispatch] = useContext(AppContext);
   const [loginShow, setLoginShow] = useState(false);
   const [registerShow, setRegisterShow] = useState(false);
-
-  // const onSwitchLogin = () => {
-  //   setRegisterShow(false);
-  //   setLoginShow(true);
-  // };
-
-  const onSwitchRegister = () => {
-    setRegisterShow(true);
-    setLoginShow(false);
-  };
 
   const handleLogout = () => {
     dispatch({
@@ -56,7 +44,7 @@ export default function NavbarUser({ stateLogin, setStateLogin }) {
       style={{ paddingTop: "20px", paddingBottom: "10px" }}
     >
       <Container fluid>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/beranda">
           <Image
             src={LogoShapes}
             style={{ marginRight: "10px", height: "25px", width: "auto" }}
@@ -66,43 +54,10 @@ export default function NavbarUser({ stateLogin, setStateLogin }) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            {/* <Nav.Link
-              as={Link}
-              to="/product"
-              style={{
-                marginLeft: "10px",
-                textAlign: "center",
-              }}
-            >
-              Product
-            </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/loading1"
-              style={{
-                marginLeft: "10px",
-                textAlign: "center",
-              }}
-            >
-              Test Loding 1
-            </Nav.Link> */}
-          </Nav>
-          {/* <Nav.Link
-            as={Link}
-            to="/cart"
-            style={{
-              marginLeft: "10px",
-              textAlign: "center",
-              color: "#b8b8b8",
-            }}
-          >
-            Cart: {state.carts.length}
-          </Nav.Link> */}
-
+          <Nav className="mr-auto"></Nav>
           <div className="dropdown" style={{ float: "right" }}>
             <Image
-              src={Ellipse2}
+              src={Ellipse1}
               style={{
                 width: "40PX",
                 height: "auto",
@@ -112,40 +67,60 @@ export default function NavbarUser({ stateLogin, setStateLogin }) {
               }}
             />
             <div className="dropdown-content">
-              <Link
-                to="/pay"
+              <Nav.Link
                 style={{
-                  textDecoration: "none",
-                  padding: "0",
-                  margin: "0",
+                  borderTopLeftRadius: "10px",
+                  borderTopRightRadius: "10px",
+                  paddingTop: "10px",
+                  paddingBottom: "18px",
                 }}
               >
-                <a
-                  href="#"
-                  style={{
-                    borderTopLeftRadius: "3px",
-                    borderTopRightRadius: "3px",
-                    fontSize: "15px",
-                    fontWeight: "bold",
-                  }}
-                >
+                <center>
                   <Image
-                    src={Vector1}
+                    src={Ellipse1}
                     style={{
-                      marginRight: "20px",
-                      height: "20px",
-                      width: "auto",
+                      width: "60PX",
+                      height: "auto",
+                      cursor: "pointer",
+                      marginTop: "5px",
+                      marginBottom: "5px",
                     }}
                   />
-                  Pay
-                </a>
-              </Link>
+                  <div style={{ color: "#ffffff" }}>
+                    <span>{state.user.fullname}</span>
+                  </div>
+                </center>
+              </Nav.Link>
               <div className="borderBottom"></div>
-              <a
-                href="#"
+              <Nav.Link
+                as={Link}
+                to="/pay"
                 style={{
-                  borderBottomLeftRadius: "3px",
-                  borderBottomRightRadius: "3px",
+                  borderTopLeftRadius: "10px",
+                  borderTopRightRadius: "10px",
+                  paddingTop: "10px",
+                  paddingBottom: "18px",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                <Image
+                  src={Vector1}
+                  style={{
+                    marginRight: "20px",
+                    height: "20px",
+                    width: "auto",
+                  }}
+                />
+                Pay
+              </Nav.Link>
+              <div className="borderBottom"></div>
+              <Nav.Link
+                style={{
+                  borderBottomLeftRadius: "10px",
+                  borderBottomRightRadius: "10px",
+                  paddingTop: "10px",
+                  paddingBottom: "18px",
                   fontSize: "15px",
                   fontWeight: "bold",
                 }}
@@ -154,13 +129,13 @@ export default function NavbarUser({ stateLogin, setStateLogin }) {
                 <Image
                   src={Vector3}
                   style={{
-                    marginRight: "27px",
+                    marginRight: "20px",
                     height: "20px",
                     width: "auto",
                   }}
                 />
                 Logout
-              </a>
+              </Nav.Link>
             </div>
           </div>
 

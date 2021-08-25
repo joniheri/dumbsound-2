@@ -33,7 +33,7 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
   // CheckUserIsLogin
   useEffect(() => {
     if (state.isLogin) {
-      history.push("/beranda-admin");
+      history.push("/beranda");
     }
   }, []);
   // EndCheckUserIsLogin
@@ -64,7 +64,7 @@ export default function BerandaPublic({ stateLogin, setStateLogin }) {
 
   return (
     <>
-      <NavbarPublic />
+      {/* <NavbarPublic /> */}
       <Container fluid>
         {/* Content */}
         <center>

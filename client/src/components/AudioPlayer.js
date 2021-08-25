@@ -52,7 +52,7 @@ export default function AudioPlayer({
           <div
             style={{
               marginLeft: "10px",
-              width: "260px",
+              width: "400px",
             }}
           >
             <Row>

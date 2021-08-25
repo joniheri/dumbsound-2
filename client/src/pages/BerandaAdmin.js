@@ -8,12 +8,12 @@ import { Row, Col, Container, Card } from "react-bootstrap";
 import "../css/BerandaPublic.css";
 import "../css/LoadingAnimation.css";
 
+// import config
+import { API } from "../config/Api";
+
 // import components
 import NavbarAdmin from "../components/NavbarAdmin";
 import AudioPlayer from "../components/AudioPlayer";
-
-// import config
-import { API } from "../config/Api";
 
 // import img
 // import Rectangle1 from "../img/Rectangle1.png";
@@ -51,7 +51,7 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
 
   return (
     <>
-      <NavbarAdmin />
+      {/* <NavbarAdmin /> */}
       <Container fluid>
         {/* Content */}
         <Row

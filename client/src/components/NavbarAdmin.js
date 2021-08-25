@@ -7,12 +7,12 @@ import { Link, useHistory } from "react-router-dom";
 // import css
 import "../css/NavbarPublic.css";
 
+// import context
+import { AppContext } from "../contexts/GlobalContext";
+
 // import components
 import ModalLogin from "./modal/ModalLogin";
 import ModalRegister from "./modal/ModalRegister";
-
-// import context
-import { AppContext } from "../contexts/GlobalContext";
 
 // import img
 import LogoShapes from "../img/LogoShapes.png";
@@ -43,11 +43,11 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
       expand="lg"
       variant="dark"
       fixed="top"
-      className="shadow Container"
+      className="shadow container-fluid"
       style={{ paddingTop: "20px", paddingBottom: "10px" }}
     >
       <Container fluid>
-        <Navbar.Brand as={Link} to="/beranda-admin">
+        <Navbar.Brand as={Link} to="/beranda">
           <Image
             src={LogoShapes}
             style={{ marginRight: "10px", height: "25px", width: "auto" }}
@@ -73,8 +73,8 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
             <div className="dropdown-content">
               <Nav.Link
                 style={{
-                  borderTopLeftRadius: "3px",
-                  borderTopRightRadius: "3px",
+                  borderTopLeftRadius: "10px",
+                  borderTopRightRadius: "10px",
                   paddingTop: "10px",
                   paddingBottom: "18px",
                 }}
@@ -180,8 +180,8 @@ export default function NavbarPublic({ stateLogin, setStateLogin }) {
               <a
                 href="#"
                 style={{
-                  borderBottomLeftRadius: "3px",
-                  borderBottomRightRadius: "3px",
+                  borderBottomLeftRadius: "10px",
+                  borderBottomRightRadius: "10px",
                   fontSize: "15px",
                   fontWeight: "bold",
                 }}

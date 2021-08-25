@@ -6,9 +6,6 @@ import { Button, Modal, Form, Alert } from "react-bootstrap";
 // import react-router-dom
 import { useHistory } from "react-router-dom";
 
-// impost css
-import "../../css/ModalLogin.css";
-
 // import API
 import { API, setAuthToken } from "../../config/Api";
 
@@ -105,12 +102,12 @@ export default function ModalLogin({
           ...formData,
           email: "",
           password: "",
-          alertMessage: "Login Success!",
+          alertMessage: "",
           alertVariant: "success",
         });
-        console.log("ResponseData: ", response.data.token);
+        // console.log("ResponseData: ", response.data.token);
         setAuthToken(response.data.token);
-        history.push("/beranda-admin");
+        history.push("/beranda");
         setLoginShow(false);
       }
       // EndIfLoginSuccess==============

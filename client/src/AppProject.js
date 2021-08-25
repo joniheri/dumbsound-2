@@ -1,7 +1,12 @@
 import React, { useContext, useEffect } from "react";
 
 // import react-router-dom
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 
 // import components
 import PrivateRoute from "./components/PrivateRoute";
@@ -13,17 +18,17 @@ import { API, setAuthToken } from "./config/Api";
 import { AppContext } from "./contexts/GlobalContext";
 
 // import pages
+import Beranda from "./pages/Beranda";
 import BerandaPublic from "./pages/BerandaPublic";
-import BerandaAdmin from "./pages/BerandaAdmin";
-// import BerandaUser from "./pages/BerandaUser";
 import AddArtist from "./pages/AddArtist";
 import AddMusic from "./pages/AddMusic";
 import Transaction from "./pages/Transaction";
-import Cart from "./pages/Cart";
-import Product from "./pages/Product";
-import DetailProduct from "./pages/DetailProduct";
+import Pay from "./pages/Pay";
 import NotFound from "./pages/NotFound";
-import LoadingTest1 from "./pages/LoadingTest1";
+import NavbarPublic from "./components/NavbarPublic";
+import Profile from "./pages/Profile";
+
+// console.log("DataToken: ", localStorage.token);
 
 // CheckTokenInLocalStorageIsExist
 if (localStorage.token) {
@@ -33,9 +38,11 @@ if (localStorage.token) {
 // EndCheckTokenInLocalStorageIsExist
 
 export default function AppProject() {
+  const history = useHistory();
   const [state, dispatch] = useContext(AppContext);
 
   // console.log("DatStateAppProject: ", state);
+
   const checkUser = async () => {
     try {
       const response = await API.get("/check-auth");
@@ -64,20 +71,15 @@ export default function AppProject() {
 
   return (
     <Router>
+      <NavbarPublic />
       <Switch>
         <Route exact path="/" component={BerandaPublic} />
-        <Route exact path="/product" component={Product} />
-        <Route exact path="/loading1" component={LoadingTest1} />
-        <Route
-          exact
-          path="/detail-product/:idParam"
-          component={DetailProduct}
-        />
-        <Route exact path="/cart" component={Cart} />
-        <PrivateRoute exact path="/beranda-admin" component={BerandaAdmin} />
+        <PrivateRoute exact path="/beranda" component={Beranda} />
+        <PrivateRoute exact path="/pay" component={Pay} />
         <PrivateRoute exact path="/add-artist" component={AddArtist} />
         <PrivateRoute exact path="/add-music" component={AddMusic} />
         <PrivateRoute exact path="/transaction" component={Transaction} />
+        <PrivateRoute exact path="/profile" component={Profile} />
 
         {/* PageNotFound */}
         <Route component={NotFound} />
