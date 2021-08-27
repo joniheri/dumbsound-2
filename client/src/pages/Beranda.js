@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Container } from "react-bootstrap";
 
 // import context
 import { AppContext } from "../contexts/GlobalContext";

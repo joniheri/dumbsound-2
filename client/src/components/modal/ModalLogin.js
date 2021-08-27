@@ -12,13 +12,18 @@ import { API, setAuthToken } from "../../config/Api";
 // import context
 import { AppContext } from "../../contexts/GlobalContext";
 
+// SetTimer
+// function simulateNetworkRequest() {
+//   return new Promise((resolve) => setTimeout(resolve, 2000));
+// }
+// EndSetTimer
+
 export default function ModalLogin({
   loginShow,
   setLoginShow,
   setRegisterShow,
 }) {
   const history = useHistory();
-
   const [state, dispatch] = useContext(AppContext);
 
   const [formData, setFormData] = useState({

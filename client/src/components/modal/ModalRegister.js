@@ -26,7 +26,6 @@ export default function ModalRegister({
     gender: "",
     phone: "",
     address: "",
-    level: "User",
   });
 
   // const { fullname, email, password, gender, phone, address, level } = formData;
@@ -210,20 +209,6 @@ export default function ModalRegister({
                 type="text"
                 placeholder="Address"
                 required
-                style={{
-                  margin: "0 0 15px 0",
-                  background: "#4b4b4b",
-                  color: "#fff",
-                }}
-              />
-            </Form.Group>
-            <Form.Group controlId="formFile" className="mb-3">
-              <Form.Control
-                onChange={handleOnChange}
-                name="level"
-                type="hidden"
-                placeholder="Level"
-                value="User"
                 style={{
                   margin: "0 0 15px 0",
                   background: "#4b4b4b",

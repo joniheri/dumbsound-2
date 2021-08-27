@@ -63,7 +63,7 @@ export default function BerandaUser({ stateLogin, setStateLogin }) {
   return (
     <>
       {/* <NavbarUser /> */}
-      <Container fluid>
+      <Container fluid style={{ marginBottom: "50px" }}>
         {/* Content */}
         <Row
           style={{

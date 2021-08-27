@@ -12,7 +12,6 @@ import "../css/BerandaPublic.css";
 import "../css/LoadingAnimation.css";
 
 // import components
-import NavbarPublic from "../components/NavbarPublic";
 import ModalLogin from "../components/modal/ModalLogin";
 import ModalRegister from "../components/modal/ModalRegister";
 

@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Container, Alert, Form, Row, Col, Button } from "react-bootstrap";
 
+// import css
+import "../css/AddMusic.css";
+
 // import config
 import { API } from "../config/Api";
 
@@ -9,6 +12,9 @@ import { AppContext } from "../contexts/GlobalContext";
 
 // import components
 import NotFound from "./NotFound";
+
+// import img
+import InputFile from "../img/inputFile.png";
 
 export default function AddMusic() {
   const [state] = useContext(AppContext);
@@ -34,9 +40,14 @@ export default function AddMusic() {
         e.target.type === "file" ? e.target.files : e.target.value,
     });
 
-    if (e.target.name === "thumbnail") {
-      let url = URL.createObjectURL(e.target.files[0]);
-      setPreview(url);
+    // console.log("TargetValue: ", e.target.value);
+    if (e.target.value === "" || e.target.value === null) {
+      setPreview("");
+    } else {
+      if (e.target.name === "thumbnail") {
+        let url = URL.createObjectURL(e.target.files[0]);
+        setPreview(url);
+      }
     }
   };
 
@@ -132,25 +143,40 @@ export default function AddMusic() {
                     style={{
                       padding: "0 0 0 10px",
                       margin: "0 0 15px 0",
+                      background: "#444444",
+                      color: "#CBCECF",
                     }}
                   />
                 </Col>
                 <Col sm={3}>
-                  <Form.Control
-                    onChange={handleInputChange}
-                    name="thumbnail"
-                    type="file"
-                    title="Thumbnail"
+                  <div
+                    className="upload-btn-wrapper"
                     style={{
-                      border: "1px solid #fff",
-                      borderRadius: "3px",
-                      color: "#fff",
-                      paddingTop: "3px",
-                      paddingBottom: "3px",
-                      cursor: "pointer",
-                      width: "250px",
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
                     }}
-                  />
+                  >
+                    <button className="btn-input-image" type="button">
+                      Attach Thumbnail
+                      <img
+                        src={InputFile}
+                        style={{
+                          marginLeft: "10px",
+                          height: "21px",
+                          width: "15px",
+                        }}
+                      />
+                    </button>
+                    <input
+                      type="file"
+                      name="thumbnail"
+                      onChange={handleInputChange}
+                      style={{
+                        cursor: "contextMenu",
+                      }}
+                    />
+                  </div>
                 </Col>
               </Row>
               <Form.Control
@@ -159,7 +185,11 @@ export default function AddMusic() {
                 type="number"
                 placeholder="Year"
                 required
-                style={{ margin: "0 0 15px 0" }}
+                style={{
+                  margin: "0 0 15px 0",
+                  background: "#444444",
+                  color: "#CBCECF",
+                }}
                 className="input1"
               />
               <select
@@ -169,6 +199,8 @@ export default function AddMusic() {
                   width: "100%",
                   height: "38px",
                   borderRadius: "5px",
+                  background: "#444444",
+                  color: "#CBCECF",
                 }}
               >
                 <option>--Select Singer--</option>
@@ -184,19 +216,26 @@ export default function AddMusic() {
                 }}
               >
                 <Col sm={3}>
-                  <Form.Control
-                    onChange={handleInputChange}
-                    name="attache"
-                    type="file"
-                    title="Attache"
+                  <div
+                    className="upload-btn-wrapper"
                     style={{
-                      border: "1px solid #fff",
-                      borderRadius: "3px",
-                      color: "#fff",
-                      cursor: "pointer",
-                      width: "100%",
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
                     }}
-                  />
+                  >
+                    <button className="btn-input-image" type="button">
+                      Attache File Music
+                    </button>
+                    <input
+                      type="file"
+                      name="attache"
+                      onChange={handleInputChange}
+                      style={{
+                        cursor: "contextMenu",
+                      }}
+                    />
+                  </div>
                 </Col>
               </Row>
               <Row>
@@ -221,17 +260,27 @@ export default function AddMusic() {
                 <Col sm={9}></Col>
                 <Col sm={3}>
                   {preview !== "" && (
-                    <img
-                      src={preview}
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        objectFit: "cover",
-                        paddingLeft: "15px",
-                        paddingRight: "15px",
-                        marginBottom: "15px",
-                      }}
-                    />
+                    <>
+                      <p
+                        style={{
+                          color: "#CBCECF",
+                          textAlign: "center",
+                        }}
+                      >
+                        Priview Thumbnail
+                      </p>
+                      <img
+                        src={preview}
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          objectFit: "cover",
+                          paddingLeft: "15px",
+                          paddingRight: "15px",
+                          marginBottom: "15px",
+                        }}
+                      />
+                    </>
                   )}
                 </Col>
               </Row>

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // impost object bootstrap
-import { Row, Col, Container, Card } from "react-bootstrap";
+import { Row, Col, Container, Card, ListGroup, Button } from "react-bootstrap";
 
 // impost css
 import "../css/BerandaPublic.css";
@@ -12,7 +12,6 @@ import "../css/LoadingAnimation.css";
 import { API } from "../config/Api";
 
 // import components
-import NavbarAdmin from "../components/NavbarAdmin";
 import AudioPlayer from "../components/AudioPlayer";
 
 // import img
@@ -52,7 +51,7 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
   return (
     <>
       {/* <NavbarAdmin /> */}
-      <Container fluid>
+      <Container fluid style={{ marginBottom: "50px" }}>
         {/* Content */}
         <Row
           style={{
@@ -116,22 +115,21 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
                   <Row>
                     {music?.map((dataMusic, index) => (
                       <Col md={2} style={{ marginBottom: "20px" }}>
-                        <Link
-                          onClick={() => {
-                            setShowAudio(true);
-                            setMusicFile(dataMusic.attache);
-                            setMusicThumbnail(dataMusic.thumbnail);
-                            setTitleMusic(dataMusic.title);
-                            setArtistName(dataMusic.artist.name);
-                            setPlayMusic(true);
-                          }}
-                          style={{
-                            cursor: "pointer",
-                            textDecoration: "none",
-                          }}
-                        >
-                          <Card
-                            style={{ background: "#3A3A3A", color: "#fff" }}
+                        <Card style={{ background: "#3A3A3A" }}>
+                          {" "}
+                          <Link
+                            onClick={() => {
+                              setShowAudio(true);
+                              setMusicFile(dataMusic.attache);
+                              setMusicThumbnail(dataMusic.thumbnail);
+                              setTitleMusic(dataMusic.title);
+                              setArtistName(dataMusic.artist.name);
+                              setPlayMusic(true);
+                            }}
+                            style={{
+                              cursor: "pointer",
+                              textDecoration: "none",
+                            }}
                           >
                             <Card.Img
                               variant="top"
@@ -143,11 +141,10 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
                                 paddingRight: "6px",
                               }}
                             />
-                            <Card.Body style={{ padding: "0" }}>
+                            <Card.Body style={{ padding: "0", color: "#fff" }}>
                               <Card.Title
                                 style={{
                                   fontSize: "17px",
-                                  fontWeight: "bold",
                                 }}
                               >
                                 <Row style={{ margin: "0" }}>
@@ -184,8 +181,16 @@ export default function BerandaAdmin({ stateLogin, setStateLogin }) {
                                 {dataMusic.artist.name}
                               </Card.Title>
                             </Card.Body>
-                          </Card>
-                        </Link>
+                          </Link>
+                          <Card.Footer className="text-muted">
+                            <Button variant="secondary" block>
+                              Edit
+                            </Button>
+                            <Button variant="danger" block>
+                              Delete
+                            </Button>
+                          </Card.Footer>
+                        </Card>
                       </Col>
                     ))}
                   </Row>

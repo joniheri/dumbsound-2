@@ -1,15 +1,21 @@
 import React, { useContext, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
+// import css
+import "../css/Pay.css";
+
 // import globalContext
 import { AppContext } from "../contexts/GlobalContext";
 
 // import components
-import NavbarUser from "../components/NavbarUser";
 import NotFound from "./NotFound";
+
+// import img
+import InputFile from "../img/inputFile.png";
 
 export default function Pay() {
   const [state] = useContext(AppContext);
+  const [preview, setPreview] = useState("");
   const [formData, setFormData] = useState({
     accountNumber: "",
     thumbnail: "",
@@ -22,8 +28,13 @@ export default function Pay() {
         e.target.type === "file" ? e.target.files : e.target.value,
     });
 
-    if (e.target.name === "thumbnail") {
-      let url = URL.createObjectURL(e.target.files[0]);
+    if (e.target.value === "" || e.target.value === null) {
+      setPreview("");
+    } else {
+      if (e.target.name === "attache") {
+        let url = URL.createObjectURL(e.target.files[0]);
+        setPreview(url);
+      }
     }
   };
 
@@ -83,46 +94,101 @@ export default function Pay() {
                   </Row>
                   <Row
                     style={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
                       marginBottom: "16px",
                     }}
                   >
                     <Col>
-                      <Form.Control
-                        onChange={handleInputChange}
-                        name="thumbnail"
-                        type="file"
-                        title="Thumbnail"
+                      <div
+                        className="upload-btn-wrapper"
                         style={{
-                          border: "1px solid #fff",
-                          borderRadius: "3px",
-                          color: "#fff",
-                          paddingTop: "5px",
-                          paddingBottom: "5px",
-                          cursor: "pointer",
-                          width: "100%",
+                          alignItems: "center",
+                          display: "flex",
+                          justifyContent: "center",
                         }}
-                      />
+                      >
+                        <button
+                          className="btn-input-file"
+                          type="button"
+                          style={{
+                            height: "45px",
+                          }}
+                        >
+                          Attache proof of transfer
+                          <img
+                            src={InputFile}
+                            style={{
+                              marginLeft: "10px",
+                              height: "21px",
+                              width: "15px",
+                            }}
+                          />
+                        </button>
+                        <input
+                          type="file"
+                          name="attache"
+                          onChange={handleInputChange}
+                        />
+                      </div>
                     </Col>
                   </Row>
                   <Row
                     style={{
-                      marginBottom: "16px",
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
                     }}
                   >
                     <Col>
                       <Button
                         type="submit"
                         style={{
-                          margin: "20px 0 0 0",
                           background: "#F58033",
                           borderColor: "#F58033",
                           width: "100%",
+                          marginTop: "30px",
+                          marginBottom: "16px",
                         }}
                       >
                         Send
                       </Button>
                     </Col>
                   </Row>
+                </Col>
+              </Row>
+              <Row
+                style={{
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Col md={4}>
+                  {preview !== "" && (
+                    <>
+                      <p
+                        style={{
+                          color: "#CBCECF",
+                          textAlign: "center",
+                        }}
+                      >
+                        Priview Image Attahce
+                      </p>
+                      <img
+                        src={preview}
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          objectFit: "cover",
+                          paddingLeft: "15px",
+                          paddingRight: "15px",
+                          marginBottom: "25px",
+                        }}
+                      />
+                    </>
+                  )}
                 </Col>
               </Row>
             </Form>

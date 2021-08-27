@@ -18,7 +18,6 @@ exports.registerAuth = async (req, res) => {
       gender: joi.string().min(4).required(),
       phone: joi.string().min(10).required(),
       address: joi.string().min(3).required(),
-      level: joi.string().min(4),
     });
     const { error } = schema.validate(data);
     if (error) {
@@ -57,6 +56,7 @@ exports.registerAuth = async (req, res) => {
     const dataUser = await User.create({
       ...data,
       password: hashedPassword,
+      level: "User",
     });
     //  end input data to database
 
