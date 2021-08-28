@@ -300,13 +300,13 @@ exports.deleteUser = async (req, res) => {
 exports.templateFunction = async (req, res) => {
   try {
     res.send({
-      response: "Response Success",
-      status: "Success.",
+      status: "Response Success",
+      message: "Success.",
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Error!",
+      status: "Response Failed",
+      message: "Error!",
       error: error,
     });
   }

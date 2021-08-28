@@ -13,21 +13,21 @@ exports.getMusics = async (req, res) => {
 
     if (getDatas == null) {
       return res.send({
-        response: "Response Failed",
-        status: "Data is empty!",
+        status: "Response Failed",
+        message: "Data is empty!",
       });
     }
 
     res.send({
-      response: "Response Success",
-      status: "Get data Success.",
+      status: "Response Success",
+      message: "Get data Success.",
       dataCount: getDatas.length,
       data: getDatas,
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Get data Error!",
+      status: "Response Failed",
+      message: "Get data Error!",
       error: error,
     });
   }
@@ -58,8 +58,8 @@ exports.getMusicsBelongstoArtis = async (req, res) => {
 
     if (getDatas == null) {
       return res.send({
-        response: "Response Failed",
-        status: "Data is empty!",
+        status: "Response Failed",
+        message: "Data is empty!",
       });
     }
 
@@ -69,20 +69,21 @@ exports.getMusicsBelongstoArtis = async (req, res) => {
       return {
         ...item,
         thumbnail: pathFile + item.thumbnail,
+        attache: pathFile + item.attache,
       };
     });
 
     res.send({
-      response: "Response Success",
-      status: "Get data Success.",
+      status: "Response Success",
+      message: "Get data Success.",
       dataCount: getDatas.length,
       dataAutMiddleware,
       data: getDatas,
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Get data Error!",
+      status: "Response Failed",
+      message: "Get data Error!",
       error: error,
     });
   }
@@ -112,22 +113,22 @@ exports.getMusictById = async (req, res) => {
 
     if (getData == null) {
       return res.send({
-        response: "Response Failed",
-        status: `Data with id ${idParam} Not Found!`,
+        status: "Response Failed",
+        message: `Data with id ${idParam} Not Found!`,
         data: null,
       });
     }
 
     res.send({
-      response: "Response Success",
-      status: "Get data Success.",
+      status: "Response Success",
+      message: "Get data Success.",
       idParam: idParam,
       data: getData,
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Get data Error!",
+      status: "Response Failed",
+      message: "Get data Error!",
       error: error,
     });
   }
@@ -150,8 +151,8 @@ exports.addMusic = async (req, res) => {
     const { error } = schema.validate(dataAdd);
     if (error) {
       return res.send({
-        response: "Response Failed",
-        status: error.details[0].message,
+        status: "Response Failed",
+        message: error.details[0].message,
         data: dataAdd,
       });
     }
@@ -161,8 +162,8 @@ exports.addMusic = async (req, res) => {
     const dataAdded = await Music.create(dataAdd);
     if (!dataAdded) {
       return res.send({
-        response: "Response Failed",
-        status: `Add data Failed!`,
+        status: "Response Failed",
+        message: `Add data Failed!`,
       });
     }
     // EndAddData
@@ -179,22 +180,22 @@ exports.addMusic = async (req, res) => {
     });
     if (getData == null) {
       return res.send({
-        response: "Response Failed",
-        status: `Data with id ${idMusic} Not Found!`,
+        status: "Response Failed",
+        message: `Data with id ${idMusic} Not Found!`,
         data: null,
       });
     }
     // GetDataById
 
     res.send({
-      response: "Response Success",
-      status: "Add data Success.",
+      statuss: "Response Success",
+      message: "Add data Success.",
       dataAdded: getData,
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Add Data Error!",
+      status: "Response Failed",
+      message: "Add Data Error!",
       error: error,
     });
   }
@@ -210,15 +211,15 @@ exports.addMusicWithFile = async (req, res) => {
     const schema = joi.object({
       title: joi.string().min(1).required(),
       year: joi.string().min(1).required(),
-      thumbnail: joi.string(),
-      attache: joi.string(),
       artistId: joi.string().min(1).required(),
+      thumbnail: joi.string().min(3),
+      attache: joi.string().min(3),
     });
     const { error } = schema.validate(dataAdd);
     if (error) {
       return res.send({
-        response: "Response Failed",
-        status: error.details[0].message,
+        status: "Validate Failed",
+        message: error.details[0].message,
         data: dataAdd,
       });
     }
@@ -226,23 +227,26 @@ exports.addMusicWithFile = async (req, res) => {
 
     // ModifValueDataInput
     const thumbnail = req.files.imageFile[0].filename;
+    const attache = req.files.audioFile[0].filename;
     const dataWithUpload = {
       ...dataAdd,
       thumbnail,
+      attache,
     };
+    // console.log("dataWithUpload: ", dataWithUpload);
     // ModifValueDataInput
 
     // AddData
     const dataAdded = await Music.create(dataWithUpload);
     if (!dataAdded) {
       return res.send({
-        response: "Response Failed",
-        status: `Add data Failed!`,
+        status: "Response Failed",
+        message: `Add data Failed!`,
       });
     }
     // EndAddData
 
-    // GetDataById
+    // GetDataById;
     const idMusic = dataAdded.id;
     const getData = await Music.findOne({
       where: {
@@ -254,23 +258,22 @@ exports.addMusicWithFile = async (req, res) => {
     });
     if (getData == null) {
       return res.send({
-        response: "Response Failed",
-        status: `Data with id ${idMusic} Not Found!`,
+        status: "Response Failed",
+        message: `Data with id ${idMusic} Not Found!`,
         data: null,
       });
     }
     // GetDataById
 
     res.send({
-      response: "Response Success",
-      status: "Add data Success.",
+      status: "Response Success",
+      message: "Add data Success.",
       dataAdded: getData,
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Add Data Error!",
-      error: error,
+      status: "Response Failed",
+      message: `Add Data Error!  ${error}`,
     });
   }
 };
@@ -292,8 +295,8 @@ exports.updateMusic = async (req, res) => {
     });
     if (getDataById == null) {
       return res.send({
-        response: "Response Failed",
-        status: `Data with id ${idParam} Not Found!`,
+        status: "Response Failed",
+        message: `Data with id ${idParam} Not Found!`,
         data: null,
       });
     }
@@ -308,8 +311,8 @@ exports.updateMusic = async (req, res) => {
     });
     if (!dataUpdated) {
       return res.send({
-        response: "Response Failed",
-        status: `Update Data Failed!`,
+        status: "Response Failed",
+        message: `Update Data Failed!`,
         data: null,
       });
     }
@@ -335,23 +338,23 @@ exports.updateMusic = async (req, res) => {
 
     if (getDataAfterUpdateById == null) {
       return res.send({
-        response: "Response Failed",
-        status: `Data with id ${idParam} Not Found!`,
+        status: "Response Failed",
+        message: `Data with id ${idParam} Not Found!`,
         data: null,
       });
     }
     // EndgetUserAfterUpdateById
 
     res.send({
-      response: "Response Success",
-      status: "Update data Success.",
+      status: "Response Success",
+      message: "Update data Success.",
       idParam: idParam,
       dataUpdated: getDataAfterUpdateById,
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Update Error!",
+      status: "Response Failed",
+      message: "Update Error!",
       error: error,
     });
   }
@@ -374,8 +377,8 @@ exports.deleteMusic = async (req, res) => {
     });
     if (getDataById == null) {
       return res.send({
-        response: "Response Failed",
-        status: `Data with id ${idParam} Not Found!`,
+        status: "Response Failed",
+        message: `Data with id ${idParam} Not Found!`,
         data: null,
       });
     }
@@ -389,21 +392,21 @@ exports.deleteMusic = async (req, res) => {
     });
     if (!deleteData) {
       return res.send({
-        response: "Response Failed",
-        status: `Delete data Failed!`,
+        status: "Response Failed",
+        message: `Delete data Failed!`,
         data: null,
       });
     }
     // EndDelete
 
     res.send({
-      response: "Response Success",
-      status: "Delete data Success.",
+      status: "Response Success",
+      message: "Delete data Success.",
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Delete Error!",
+      status: "Response Failed",
+      message: "Delete Error!",
       error: error,
     });
   }
@@ -414,13 +417,13 @@ exports.deleteMusic = async (req, res) => {
 exports.templateFunction = async (req, res) => {
   try {
     res.send({
-      response: "Response Success",
-      status: "Success.",
+      status: "Response Success",
+      message: "Success.",
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Error!",
+      status: "Response Failed",
+      message: "Error!",
       error: error,
     });
   }

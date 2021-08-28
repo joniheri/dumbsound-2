@@ -20,8 +20,9 @@ export default function AddMusic() {
   const [state] = useContext(AppContext);
   const [artist, setArtis] = useState([]);
   const [messageShowFailed, setMessageShowFailed] = useState("");
-  const [messageNotif, setMessageNotif] = useState("");
+  const [variantNotif, setVariantNotif] = useState("");
   const [preview, setPreview] = useState("");
+  const [previewNameFileAttache, setPreviewNameFileAttache] = useState("");
 
   const [formData, setFormData] = useState({
     title: "",
@@ -30,8 +31,6 @@ export default function AddMusic() {
     attache: "",
     artistId: "",
   });
-
-  // const { title, year, thumbnail, attache, artistId } = formData;
 
   const handleInputChange = (e) => {
     setFormData({
@@ -47,6 +46,10 @@ export default function AddMusic() {
       if (e.target.name === "thumbnail") {
         let url = URL.createObjectURL(e.target.files[0]);
         setPreview(url);
+      }
+      if (e.target.name === "attache") {
+        let url = URL.createObjectURL(e.target.files[0]);
+        setPreviewNameFileAttache(url);
       }
     }
   };
@@ -76,26 +79,35 @@ export default function AddMusic() {
           "Content-type": "multipart/form-data",
         },
       };
-      const formData = new FormData();
-      formData.set("title", formData.title);
-      formData.set("year", formData.year);
-      formData.set("attache", formData.attache);
-      formData.set("artistId", formData.artistId);
-      formData.set(
+
+      const formDataSend = new FormData();
+      formDataSend.set("title", formData.title);
+      formDataSend.set("year", formData.year);
+      formDataSend.set(
         "imageFile",
         formData.thumbnail[0],
         formData.thumbnail[0].name
       );
-      const body = JSON.stringify({ ...formData });
-      // console.log("setNewData", formData);
-      const response = await API.post("/add-music-file", formData, config); //-->this is sintact to inset to database
-      // console.log("DataSaved: ", response);
-      if (response.data.status === "Validate Failed") {
+      formDataSend.set(
+        "audioFile",
+        formData.attache[0],
+        formData.attache[0].name
+      );
+      formDataSend.set("artistId", formData.artistId);
+
+      // console.log("AttacheName", formData.attache[0].name);
+
+      const response = await API.post("/add-music-file", formDataSend, config); //-->this is sintact to inset to database
+      console.log("DataSaved: ", response);
+      if (response.data.status === "Upload Failed!") {
         setMessageShowFailed(response.data.message);
-        setMessageNotif("");
+        setVariantNotif("danger");
+      } else if (response.data.status === "Validate Failed") {
+        setMessageShowFailed(response.data.message);
+        setVariantNotif("danger");
       } else if (response.data.status === "Response Failed") {
         setMessageShowFailed(response.data.message);
-        setMessageNotif("");
+        setVariantNotif("danger");
       } else {
         setFormData({
           title: "",
@@ -104,8 +116,9 @@ export default function AddMusic() {
           attache: "",
           artistId: "",
         });
-        setMessageShowFailed("");
-        setMessageNotif("Add Data Success!");
+        setMessageShowFailed("Add Data Success!");
+        setVariantNotif("success");
+        setPreview("");
       }
     } catch (error) {
       console.log("ErrorTryCath", error);
@@ -127,9 +140,8 @@ export default function AddMusic() {
               Add Music
             </h3>
             {messageShowFailed && (
-              <Alert variant="danger">{messageShowFailed}</Alert>
+              <Alert variant={variantNotif}>{messageShowFailed}</Alert>
             )}
-            {messageNotif && <Alert variant="success">{messageNotif}</Alert>}
             <Form onSubmit={handleOnSubmit}>
               <Row>
                 <Col sm={9}>
@@ -225,7 +237,7 @@ export default function AddMusic() {
                     }}
                   >
                     <button className="btn-input-image" type="button">
-                      Attache File Music
+                      Attach File Music
                     </button>
                     <input
                       type="file"
@@ -237,6 +249,28 @@ export default function AddMusic() {
                     />
                   </div>
                 </Col>
+                {!formData.attache[0] ? (
+                  <></>
+                ) : (
+                  <>
+                    {console.log(previewNameFileAttache)}
+                    <Col sm={9}>
+                      <Form.Control
+                        type="text"
+                        placeholder="Name file of attache"
+                        value={formData.attache[0].name}
+                        readOnly
+                        className="input1"
+                        style={{
+                          padding: "0 0 0 10px",
+                          margin: "0 0 15px 0",
+                          background: "#161616",
+                          color: "#CBCECF",
+                        }}
+                      />
+                    </Col>
+                  </>
+                )}
               </Row>
               <Row>
                 <Col>
@@ -285,8 +319,10 @@ export default function AddMusic() {
                 </Col>
               </Row>
             </Form>
-            {/* <pre style={{ color: "#fff" }}>{JSON.stringify(formData, null, 3)}</pre>
-          <pre style={{ color: "#fff" }}>{JSON.stringify(artis, null, 3)}</pre> */}
+            {/* <pre style={{ color: "#fff" }}>
+              {JSON.stringify(formData, null, 3)}
+            </pre> */}
+            {/* {console.log("FormData: ", formData)} */}
           </>
         )}
       </Container>

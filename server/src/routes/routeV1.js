@@ -74,7 +74,11 @@ router.get("/musics-artist-public", getMusicsBelongstoArtis);
 router.get("/musics-artist-user", AuthMiddleware, getMusicsBelongstoArtis);
 router.get("/music/:idParam", getMusictById);
 router.post("/add-music", addMusic);
-router.post("/add-music-file", UploadFiles("imageFile"), addMusicWithFile);
+router.post(
+  "/add-music-file",
+  UploadFiles("imageFile", "audioFile"),
+  addMusicWithFile
+);
 router.patch("/update-music/:idParam", updateMusic);
 router.delete("/delete-music/:idParam", deleteMusic);
 // EndMusicRoute

@@ -1,6 +1,6 @@
 const multer = require("multer");
 
-exports.UploadFiles = (imageFile, videoFile) => {
+exports.UploadFiles = (imageFile, audioFile, videoFile) => {
   // init multer disktorage
   // determine(menentukan) storage location files uploded
   // determine(menentukan) file name
@@ -20,21 +20,25 @@ exports.UploadFiles = (imageFile, videoFile) => {
   const fileFilter = function (req, file, cb) {
     if (file.fieldname === imageFile) {
       if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
-        req.fileValidationError = {
-          message: "Only image files are allowed!",
-        };
+        req.fileValidationError = "Only image files are allowed!";
         return cb(new Error("Only image files are allowed!"), false);
+      }
+    }
+
+    if (file.fieldname === audioFile) {
+      if (!file.originalname.match(/\.(mp3|MP3|mpeg|MPEG)$/)) {
+        req.fileValidationError = "Only audio files are allowed!";
+        return cb(new Error("Only audio files are allowed!"), false);
       }
     }
 
     if (file.fieldname === videoFile) {
       if (!file.originalname.match(/\.(mp4|mkv)$/)) {
-        req.fileValidationError = {
-          message: "Only video files are allowed!",
-        };
+        req.fileValidationError = "Only video files are allowed!";
         return cb(new Error("Only video files are allowed!"), false);
       }
     }
+
     cb(null, true);
   };
 
@@ -54,6 +58,10 @@ exports.UploadFiles = (imageFile, videoFile) => {
       maxCount: 1,
     },
     {
+      name: audioFile,
+      maxCount: 1,
+    },
+    {
       name: videoFile,
       maxCount: 1,
     },
@@ -63,12 +71,16 @@ exports.UploadFiles = (imageFile, videoFile) => {
     upload(req, res, function (err) {
       // message error if validate failed
       if (req.fileValidationError) {
-        return res.status(400).send(req.fileValidationError);
+        return res.status(400).send({
+          status: "Upload Failed!",
+          message: req.fileValidationError,
+        });
       }
 
       // message if file uploaded is empty
       if (!req.files && !err) {
         return res.status(400).send({
+          status: "Upload Failed!",
           message: "Please select file to upload!",
         });
       }
@@ -77,6 +89,7 @@ exports.UploadFiles = (imageFile, videoFile) => {
         // jika size melebihi batas
         if (err.code === "LIMIT_FILE_SIZE") {
           return res.status(400).send({
+            status: "Upload Failed!",
             message: "Max file sized 100MB",
           });
         }
