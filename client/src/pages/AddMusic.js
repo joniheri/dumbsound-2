@@ -237,7 +237,7 @@ export default function AddMusic() {
                     }}
                   >
                     <button className="btn-input-image" type="button">
-                      Attach File Music
+                      Attach Music File
                     </button>
                     <input
                       type="file"
