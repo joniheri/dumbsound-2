@@ -27,6 +27,7 @@ router.delete("/deletetodo/:id", deleteTodo);
 // UsersRouter
 const {
   getUsers,
+  getUsersHasManyTransaction,
   getUserById,
   addUser,
   updateUser,
@@ -34,6 +35,7 @@ const {
 } = require("../controllers/versi1/User");
 
 router.get("/users", getUsers);
+router.get("/users-transaction", getUsersHasManyTransaction);
 router.get("/user/:id", getUserById);
 router.post("/add-user", addUser);
 router.patch("/update-user/:idparam", updateUser);
@@ -121,6 +123,17 @@ const {
 router.post("/register", registerAuth);
 router.post("/login", loginAuth);
 router.get("/check-auth", AuthMiddleware, checkAuth);
+// EndAuthRoute
+
+// TransactionRoute
+const {
+  getTransactionsHasManyUser,
+  Pay,
+} = require("../controllers/versi1/Transaction");
+
+// router.post("/pay", UploadFiles("imageFile"), Pay);
+router.get("/transactions-user", getTransactionsHasManyUser);
+router.post("/pay", Pay);
 // EndAuthRoute
 
 module.exports = router;

@@ -1,5 +1,5 @@
-## Make migration/tatable to database
-~ npx sequelize-cli model:generate --name Tablename --attributes fieldnameOne:string,fieldnameTwo:integer
+## Make migration/table to database
+~ npx sequelize-cli model:generate --name Tablename --attributes fieldnameOne:string,fieldId:integer,inputDate:dateonly
 
 ## Make migrating table from folder migration to database
 ~ npx sequelize-cli db:migrate

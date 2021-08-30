@@ -128,8 +128,8 @@ exports.addArtist = async (req, res) => {
     const { error } = schema.validate(dataAdd);
     if (error) {
       return res.send({
-        response: "Response Failed",
-        status: error.details[0].message,
+        status: "Response Failed",
+        message: error.details[0].message,
         data: dataAdd,
       });
     }
@@ -139,8 +139,8 @@ exports.addArtist = async (req, res) => {
     const dataAdded = await Artist.create(dataAdd);
     if (!dataAdded) {
       return res.send({
-        response: "Response Failed",
-        status: `Add data Failed!`,
+        status: "Response Failed",
+        message: `Add data Failed!`,
       });
     }
     // EndAddData
@@ -157,22 +157,22 @@ exports.addArtist = async (req, res) => {
     });
     if (getData == null) {
       return res.send({
-        response: "Response Failed",
-        status: `Data with id ${idArtist} Not Found!`,
+        status: "Response Failed",
+        message: `Data with id ${idArtist} Not Found!`,
         data: null,
       });
     }
     // EndGetArtistById
 
     res.send({
-      response: "Response Success",
-      status: "Add data Success.",
+      status: "Response Success",
+      message: "Add data Success.",
       dataAdded: getData,
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Add Data Error!",
+      status: "Response Failed",
+      message: "Add Data Error!",
       error: error,
     });
   }
@@ -195,8 +195,8 @@ exports.updateArtist = async (req, res) => {
     });
     if (getDataById == null) {
       return res.send({
-        response: "Response Failed",
-        status: `Data with id ${idParam} Not Found!`,
+        status: "Response Failed",
+        message: `Data with id ${idParam} Not Found!`,
         data: null,
       });
     }
@@ -211,8 +211,8 @@ exports.updateArtist = async (req, res) => {
     });
     if (!dataUpdated) {
       return res.send({
-        response: "Response Failed",
-        status: `Update Data Failed!`,
+        status: "Response Failed",
+        message: `Update Data Failed!`,
         data: null,
       });
     }
@@ -231,23 +231,23 @@ exports.updateArtist = async (req, res) => {
 
     if (getDataAfterUpdateById == null) {
       return res.send({
-        response: "Response Failed",
-        status: `Data with id ${idParam} Not Found!`,
+        status: "Response Failed",
+        message: `Data with id ${idParam} Not Found!`,
         data: null,
       });
     }
     // EndgetUserAfterUpdateById
 
     res.send({
-      response: "Response Success",
-      status: "Update data Success.",
+      status: "Response Success",
+      message: "Update data Success.",
       idParam: idParam,
       dataUpdated: getDataAfterUpdateById,
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Update Error!",
+      status: "Response Failed",
+      message: "Update Error!",
       error: error,
     });
   }
@@ -270,8 +270,8 @@ exports.deleteArtist = async (req, res) => {
     });
     if (getDataById == null) {
       return res.send({
-        response: "Response Failed",
-        status: `Data with id ${idParam} Not Found!`,
+        status: "Response Failed",
+        message: `Data with id ${idParam} Not Found!`,
         data: null,
       });
     }
@@ -285,28 +285,28 @@ exports.deleteArtist = async (req, res) => {
     });
     if (!deleteData) {
       return res.send({
-        response: "Response Failed",
-        status: `Delete data Failed!`,
+        status: "Response Failed",
+        message: `Delete data Failed!`,
         data: null,
       });
     }
     // EndDelete
 
     res.send({
-      response: "Response Success",
-      status: "Delete data Success.",
+      status: "Response Success",
+      message: "Delete data Success.",
     });
   } catch (error) {
     return res.send({
-      response: "Response Failed",
-      status: "Delete Error!",
+      status: "Response Failed",
+      message: "Delete Error!",
       error: error,
     });
   }
 };
 // End Function DeleteArtist
 
-// Template Function
+// Function Template
 exports.templateFunction = async (req, res) => {
   try {
     res.send({
@@ -321,4 +321,4 @@ exports.templateFunction = async (req, res) => {
     });
   }
 };
-// End Template Function
+// End Function Template

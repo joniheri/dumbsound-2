@@ -2,7 +2,8 @@
 const joi = require("joi");
 
 // import models
-const { User } = require("../../../models");
+const { User, Transaction } = require("../../../models");
+const transaction = require("../../../models/transaction");
 
 // Function GetUsers
 exports.getUsers = async (req, res) => {
@@ -35,6 +36,60 @@ exports.getUsers = async (req, res) => {
   }
 };
 // End Function GetUsers
+
+// Function GetUsersBelongsToTransaction
+exports.getUsersHasManyTransaction = async (req, res) => {
+  try {
+    // CheckDataFromMiddleware
+    // const dataAutMiddleware = req.user;
+    // EndCheckDataFromMiddleware
+
+    const pathFile = process.env.PATCH_UPLOADS;
+
+    let getDatas = await User.findAll({
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+      include: {
+        model: Transaction,
+        as: "transaction",
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "userId", "UserId"],
+        },
+      },
+    });
+
+    if (getDatas == null) {
+      return res.send({
+        status: "Response Failed",
+        message: "Data is empty!",
+      });
+    }
+
+    const parseJSON = JSON.parse(JSON.stringify(getDatas));
+
+    getDatas = parseJSON.map((item) => {
+      return {
+        ...item,
+      };
+    });
+
+    res.send({
+      status: "Response Success",
+      message: "Get data Success.",
+      dataCount: getDatas.length,
+      pathFile,
+      data: getDatas,
+    });
+  } catch (error) {
+    return res.send({
+      status: "Response Failed",
+      message: "Get data Error!",
+      error: error,
+    });
+  }
+};
+// End Function GetUsersBelongsToTransaction
 
 //  Function GetUserById
 exports.getUserById = async (req, res) => {

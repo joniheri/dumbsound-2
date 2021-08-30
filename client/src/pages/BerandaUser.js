@@ -15,25 +15,18 @@ import "../css/LoadingAnimation.css";
 import { API } from "../config/Api";
 
 // import components
-import NavbarUser from "../components/NavbarUser";
-import ModalLogin from "../components/modal/ModalLogin";
-import ModalRegister from "../components/modal/ModalRegister";
 import AudioPlayer from "../components/AudioPlayer";
+import JkMusicPlayer2Edit from "../components/ReactJkMusicPlayer/JkMusicPlayer2Edit";
 
-export default function BerandaUser({ stateLogin, setStateLogin }) {
+export default function BerandaUser() {
   // const [state] = useContext(AppContext);
   // console.log("DataState", state);
 
-  const [loginShow, setLoginShow] = useState(false);
-  const [registerShow, setRegisterShow] = useState(false);
   const [music, setMusic] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [showAudio, setShowAudio] = useState(false);
+  const [musicShow, setMusicShow] = useState(false);
   const [musicFile, setMusicFile] = useState(null);
-  const [musicThumbnail, setMusicThumbnail] = useState(null);
-  const [artistName, setArtistName] = useState(null);
-  const [titleMusic, setTitleMusic] = useState(null);
   const [playMusic, setPlayMusic] = useState(true);
 
   // loadDatasMusic
@@ -54,11 +47,6 @@ export default function BerandaUser({ stateLogin, setStateLogin }) {
   // EndLoadDatasMusic
 
   // console.log("DataMusic:", music);
-
-  const onSwitchLogin = () => {
-    setRegisterShow(false);
-    setLoginShow(true);
-  };
 
   return (
     <>
@@ -129,12 +117,14 @@ export default function BerandaUser({ stateLogin, setStateLogin }) {
                       <Col md={2} style={{ marginBottom: "20px" }}>
                         <Link
                           onClick={() => {
-                            setShowAudio(true);
-                            setMusicFile(dataMusic.attache);
-                            setMusicThumbnail(dataMusic.thumbnail);
-                            setTitleMusic(dataMusic.title);
-                            setArtistName(dataMusic.artist.name);
-                            setPlayMusic(true);
+                            setMusicShow(false);
+                            setMusicFile({
+                              title: dataMusic.title,
+                              thumbnail: dataMusic.thumbnail,
+                              artistName: dataMusic.artist.name,
+                              attache: dataMusic.attache,
+                            });
+                            setMusicShow(true);
                           }}
                           style={{
                             cursor: "pointer",
@@ -207,17 +197,9 @@ export default function BerandaUser({ stateLogin, setStateLogin }) {
         </div>
         {/* End Content */}
       </Container>
-      {showAudio && (
+      {musicShow && (
         <>
-          <AudioPlayer
-            setShowAudio={setShowAudio}
-            musicFile={musicFile}
-            musicThumbnail={musicThumbnail}
-            artistName={artistName}
-            titleMusic={titleMusic}
-            playMusic={playMusic}
-            setPlayMusic={setPlayMusic}
-          />
+          <JkMusicPlayer2Edit musicFile={musicFile} />
         </>
       )}
     </>

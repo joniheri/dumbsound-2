@@ -12,13 +12,7 @@ import "../css/LoadingAnimation.css";
 import { API } from "../config/Api";
 
 // import components
-// import AudioPlayer from "../components/AudioPlayer";
-// import JkMusicPlayer from "../components/ReactJkMusicPlayer/JkMusicPlayer";
-// import JkMusicPlayer2 from "../components/ReactJkMusicPlayer/JkMusicPlayer2";
 import JkMusicPlayer2Edit from "../components/ReactJkMusicPlayer/JkMusicPlayer2Edit";
-
-// import img
-// import Rectangle1 from "../img/Rectangle1.png";
 
 export default function BerandaAdmin({ stateLogin, setStateLogin }) {
   const [music, setMusic] = useState([]);
